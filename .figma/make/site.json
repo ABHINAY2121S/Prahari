@@ -1,0 +1,10 @@
+{
+  "description": "Engage users with an interactive UI/UX platform designed for seamless navigation and enhanced user experience, perfect for businesses seeking to improve engagement.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

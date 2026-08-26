@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-bg-base: #080B10;
+  --color-bg-panel: #101620;
+  --color-bg-raised: #18202C;
+  --color-stroke-hairline: #243040;
+  --color-text-primary: #E8EEF6;
+  --color-text-secondary: #8CA0B8;
+  --color-text-muted: #546678;
+  --color-state-nominal: #00C08B;
+  --color-state-advisory: #3DA9FC;
+  --color-state-caution: #F5B335;
+  --color-state-warning: #FF7A2F;
+  --color-state-critical: #FF3B4E;
+  --color-twin-predicted: #7B61FF;
+  --color-accent-india: #FF9933;
+  --font-display: 'Barlow Semi Condensed', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+
+:root {
+  --app-bg: #080B10;
+  --panel-bg: #101620;
+  --raised-bg: #18202C;
+  --border-hairline: #243040;
+  --text-primary: #E8EEF6;
+  --text-secondary: #8CA0B8;
+  --text-muted: #546678;
+  --table-border: #1a2233;
+  --table-header-bg: #18202C;
+  --card-shadow: none;
+}
+
+/* Tactical Dark Mode */
+.theme-tactical-dark {
+  --app-bg: #080B10;
+  --panel-bg: #101620;
+  --raised-bg: #18202C;
+  --border-hairline: #243040;
+  --text-primary: #E8EEF6;
+  --text-secondary: #8CA0B8;
+  --text-muted: #546678;
+  --table-border: #1a2233;
+  --table-header-bg: #18202C;
+  --card-shadow: none;
+}
+
+/* Official Gov / National Light Mode */
+.theme-gov-light {
+  --app-bg: #EEF2F6;
+  --panel-bg: #FFFFFF;
+  --raised-bg: #F1F5F9;
+  --border-hairline: #CBD5E1;
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --table-border: #E2E8F0;
+  --table-header-bg: #F8FAFC;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.font-display { font-family: 'Barlow Semi Condensed', sans-serif; }
+.font-mono { font-family: 'IBM Plex Mono', monospace; }
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--panel-bg); }
+::-webkit-scrollbar-thumb { background: var(--border-hairline); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4f6a; }
+
+/* Label utility */
+.label-xs {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Mono value utility */
+.value-lg {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.value-md {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.value-sm {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+/* Hairline border */
+.border-hairline {
+  border: 1px solid var(--border-hairline);
+}
+
+/* Panel base */
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-hairline);
+  border-radius: 6px;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Raised block */
+.raised {
+  background: var(--raised-bg);
+  border-radius: 4px;
+  border: 1px solid var(--border-hairline);
+  transition: background-color 0.25s ease;
+}
+
+/* Twin sync pulse animation */
+@keyframes twin-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.twin-pulse {
+  animation: twin-pulse 1s ease-in-out infinite;
+}
+
+/* Critical flash - flash twice then hold */
+@keyframes critical-flash {
+  0%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.critical-flash {
+  animation: critical-flash 0.8s ease-in-out 2;
+}
+
+/* Scrollable panel */
+.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Dense data table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  background: var(--table-header-bg);
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.data-table td {
+  padding: 5px 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  border-bottom: 1px solid var(--table-border);
+  color: var(--text-primary);
+}
+
+.data-table tr:hover td {
+  background: var(--raised-bg);
+  cursor: pointer;
+}
+
+.data-table tr.selected td {
+  background: rgba(61, 169, 252, 0.12);
+  border-color: rgba(61, 169, 252, 0.3);
+}
+
+/* Range bar */
+.range-bar {
+  height: 3px;
+  background: var(--raised-bg);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.range-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Inferred card left accent */
+.inferred-card {
+  border-left: 3px solid #7B61FF;
+  background: var(--panel-bg);
+  border-top: 1px solid var(--border-hairline);
+  border-right: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 12px;
+}
