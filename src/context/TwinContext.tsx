@@ -29,8 +29,6 @@ export type Screen =
 
 export type FaultStatus = "OPEN" | "ACKNOWLEDGED" | "CONFIRMED" | "FALSE_POSITIVE" | "DEFERRED" | "RESOLVED";
 
-export type AppTheme = "tactical-dark" | "gov-light";
-
 export interface OfficerProfile {
   serviceId: string;
   name: string;
@@ -150,10 +148,7 @@ interface TwinContextType {
   activeScreen: Screen;
   navigateToScreen: (s: Screen, faultId?: string) => void;
   
-  // Theme & Auth
-  theme: AppTheme;
-  toggleTheme: () => void;
-  setTheme: (t: AppTheme) => void;
+  // Auth
   user: OfficerProfile | null;
   login: (profile: OfficerProfile) => void;
   logout: () => void;
@@ -215,19 +210,13 @@ interface TwinContextType {
 const TwinContext = createContext<TwinContextType | null>(null);
 
 export const TwinProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Theme state with localStorage persistence
-  const [theme, setThemeState] = useState<AppTheme>(() => {
-    const saved = typeof window !== "undefined" ? localStorage.getItem("prahari_theme") : null;
-    return (saved as AppTheme) || "tactical-dark";
-  });
-
   // User Auth state with localStorage persistence
   const [user, setUser] = useState<OfficerProfile | null>(() => {
     const saved = typeof window !== "undefined" ? localStorage.getItem("prahari_user") : null;
     if (saved) {
       try { return JSON.parse(saved); } catch { return null; }
     }
-    return DEMO_PROFILES[0]; // Default logged in as Sqn Ldr for quick start
+    return DEMO_PROFILES[0]; // Default logged in as Sqn Ldr for immediate access
   });
 
   const [activeScreen, setActiveScreen] = useState<Screen>("live-twin");
@@ -282,28 +271,6 @@ export const TwinProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
   
   const [sensors, setSensors] = useState(INITIAL_SENSORS);
-
-  // Apply theme to document body
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.documentElement.classList.remove("theme-tactical-dark", "theme-gov-light");
-      document.documentElement.classList.add(`theme-${theme}`);
-      localStorage.setItem("prahari_theme", theme);
-    }
-  }, [theme]);
-
-  const setTheme = useCallback((t: AppTheme) => {
-    setThemeState(t);
-    playTacticalClick();
-  }, []);
-
-  const toggleTheme = useCallback(() => {
-    setThemeState((prev) => {
-      const next = prev === "tactical-dark" ? "gov-light" : "tactical-dark";
-      playTacticalClick();
-      return next;
-    });
-  }, []);
 
   const login = useCallback((profile: OfficerProfile) => {
     const withDate = { ...profile, authenticatedAt: new Date().toISOString() };
@@ -593,9 +560,6 @@ export const TwinProvider: React.FC<{ children: React.ReactNode }> = ({ children
     () => ({
       activeScreen,
       navigateToScreen,
-      theme,
-      toggleTheme,
-      setTheme,
       user,
       login,
       logout,
@@ -637,9 +601,6 @@ export const TwinProvider: React.FC<{ children: React.ReactNode }> = ({ children
     [
       activeScreen,
       navigateToScreen,
-      theme,
-      toggleTheme,
-      setTheme,
       user,
       login,
       logout,

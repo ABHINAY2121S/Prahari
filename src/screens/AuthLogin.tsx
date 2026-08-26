@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTwin, DEMO_PROFILES, OfficerProfile } from "../context/TwinContext";
 
 export default function AuthLogin() {
-  const { login, theme, toggleTheme } = useTwin();
+  const { login } = useTwin();
   const [activeTab, setActiveTab] = useState<"credentials" | "smartcard">("credentials");
   
   const [serviceId, setServiceId] = useState("DRDO-ADE-8841");
@@ -61,8 +61,8 @@ export default function AuthLogin() {
     <div
       className="flex flex-col items-center justify-center min-h-screen relative p-4 select-none"
       style={{
-        background: theme === "gov-light" ? "#EEF2F6" : "#080B10",
-        color: theme === "gov-light" ? "#0F172A" : "#E8EEF6",
+        background: "#080B10",
+        color: "#E8EEF6",
         fontFamily: "'Inter', sans-serif",
       }}
     >
@@ -73,55 +73,34 @@ export default function AuthLogin() {
         <div className="flex-1 bg-[#138808]" />
       </div>
 
-      {/* Theme and Security Status Top Bar */}
-      <div className="fixed top-4 right-6 flex items-center gap-3 z-50">
-        <button
-          onClick={toggleTheme}
-          className="font-display font-semibold text-xs px-3 py-1.5 rounded cursor-pointer transition-all flex items-center gap-1.5 shadow-sm"
-          style={{
-            background: theme === "gov-light" ? "#FFFFFF" : "#18202C",
-            color: theme === "gov-light" ? "#0F172A" : "#3DA9FC",
-            border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}`,
-          }}
-        >
-          <span>{theme === "gov-light" ? "🌙 SWITCH TO TACTICAL DARK" : "☀️ SWITCH TO GOV LIGHT"}</span>
-        </button>
-      </div>
-
       {/* Main Login Card */}
       <div
         className="panel max-w-xl w-full mx-auto p-6 sm:p-8 flex flex-col gap-5 relative z-10 shadow-2xl"
         style={{
-          background: theme === "gov-light" ? "#FFFFFF" : "#101620",
-          border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}`,
+          background: "#101620",
+          border: "1px solid #243040",
           borderRadius: 8,
         }}
       >
         {/* DRDO & Ministry of Defence Crest Header */}
-        <div className="flex flex-col items-center text-center border-b pb-4" style={{ borderColor: theme === "gov-light" ? "#E2E8F0" : "#243040" }}>
+        <div className="flex flex-col items-center text-center border-b pb-4" style={{ borderColor: "#243040" }}>
           <div className="flex items-center justify-center gap-2 mb-2">
             <span style={{ fontSize: 24 }}>🇮🇳</span>
-            <div className="h-6 w-px bg-slate-400 opacity-40 mx-1" />
+            <div className="h-6 w-px bg-slate-600 opacity-40 mx-1" />
             <span className="font-mono text-xs font-bold text-[#FF9933] tracking-widest">DRDO // ADE</span>
           </div>
 
-          <h2
-            className="font-display font-bold text-lg tracking-wider"
-            style={{ color: theme === "gov-light" ? "#0F172A" : "#E8EEF6" }}
-          >
+          <h2 className="font-display font-bold text-lg tracking-wider text-[#E8EEF6]">
             GOVERNMENT OF INDIA · MINISTRY OF DEFENCE
           </h2>
-          <div
-            className="font-display font-semibold text-xs tracking-widest text-[#FF9933]"
-            style={{ marginTop: 2 }}
-          >
+          <div className="font-display font-semibold text-xs tracking-widest text-[#FF9933]" style={{ marginTop: 2 }}>
             AERONAUTICAL DEVELOPMENT ESTABLISHMENT (ADE)
           </div>
 
           <div
             className="font-mono font-bold text-sm tracking-widest mt-3 px-3 py-1 rounded"
             style={{
-              background: theme === "gov-light" ? "rgba(2,132,199,0.08)" : "rgba(61,169,252,0.1)",
+              background: "rgba(61,169,252,0.1)",
               color: "#3DA9FC",
               border: "1px solid rgba(61,169,252,0.3)",
             }}
@@ -139,21 +118,20 @@ export default function AuthLogin() {
           }}
         >
           <span style={{ color: "#DC2626", fontSize: 14 }}>⚠️</span>
-          <p style={{ margin: 0, fontSize: 10, color: theme === "gov-light" ? "#991B1B" : "#FF7A2F", lineHeight: 1.4 }}>
+          <p style={{ margin: 0, fontSize: 10, color: "#FF7A2F", lineHeight: 1.4 }}>
             <strong>RESTRICTED MILITARY SYSTEM:</strong> Unauthorized access or tampering is strictly prohibited under the <em>Official Secrets Act (1923)</em> &amp; <em>IT Act (2000)</em>. All network sessions and telemetry queries are cryptographically logged.
           </p>
         </div>
 
         {/* Tabs: Credentials vs Smart Card */}
-        <div className="flex rounded p-1" style={{ background: theme === "gov-light" ? "#F1F5F9" : "#18202C", border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}` }}>
+        <div className="flex rounded p-1" style={{ background: "#18202C", border: "1px solid #243040" }}>
           <button
             type="button"
             onClick={() => setActiveTab("credentials")}
             className="flex-1 py-1.5 font-display font-semibold text-xs rounded transition-all cursor-pointer"
             style={{
-              background: activeTab === "credentials" ? (theme === "gov-light" ? "#FFFFFF" : "#101620") : "transparent",
-              color: activeTab === "credentials" ? (theme === "gov-light" ? "#0F172A" : "#3DA9FC") : (theme === "gov-light" ? "#64748B" : "#8CA0B8"),
-              boxShadow: activeTab === "credentials" ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
+              background: activeTab === "credentials" ? "#101620" : "transparent",
+              color: activeTab === "credentials" ? "#3DA9FC" : "#8CA0B8",
             }}
           >
             OFFICER SERVICE CREDENTIALS
@@ -163,9 +141,8 @@ export default function AuthLogin() {
             onClick={() => setActiveTab("smartcard")}
             className="flex-1 py-1.5 font-display font-semibold text-xs rounded transition-all cursor-pointer"
             style={{
-              background: activeTab === "smartcard" ? (theme === "gov-light" ? "#FFFFFF" : "#101620") : "transparent",
-              color: activeTab === "smartcard" ? (theme === "gov-light" ? "#0F172A" : "#3DA9FC") : (theme === "gov-light" ? "#64748B" : "#8CA0B8"),
-              boxShadow: activeTab === "smartcard" ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
+              background: activeTab === "smartcard" ? "#101620" : "transparent",
+              color: activeTab === "smartcard" ? "#3DA9FC" : "#8CA0B8",
             }}
           >
             SMART CARD / TOKEN
@@ -191,9 +168,9 @@ export default function AuthLogin() {
                 required
                 className="w-full px-3 py-2 rounded font-mono text-xs focus:outline-none focus:border-[#3DA9FC]"
                 style={{
-                  background: theme === "gov-light" ? "#F8FAFC" : "#18202C",
-                  border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}`,
-                  color: theme === "gov-light" ? "#0F172A" : "#E8EEF6",
+                  background: "#18202C",
+                  border: "1px solid #243040",
+                  color: "#E8EEF6",
                 }}
                 placeholder="e.g. DRDO-ADE-8841"
               />
@@ -210,9 +187,9 @@ export default function AuthLogin() {
                 required
                 className="w-full px-3 py-2 rounded font-mono text-xs focus:outline-none focus:border-[#3DA9FC]"
                 style={{
-                  background: theme === "gov-light" ? "#F8FAFC" : "#18202C",
-                  border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}`,
-                  color: theme === "gov-light" ? "#0F172A" : "#E8EEF6",
+                  background: "#18202C",
+                  border: "1px solid #243040",
+                  color: "#E8EEF6",
                 }}
               />
             </div>
@@ -233,14 +210,14 @@ export default function AuthLogin() {
                     onClick={() => setClearanceLevel(l.level as any)}
                     className="p-2 rounded text-center cursor-pointer transition-all"
                     style={{
-                      background: clearanceLevel === l.level ? (theme === "gov-light" ? "rgba(2,132,199,0.12)" : "rgba(61,169,252,0.15)") : (theme === "gov-light" ? "#F8FAFC" : "#18202C"),
-                      border: `1px solid ${clearanceLevel === l.level ? "#3DA9FC" : (theme === "gov-light" ? "#CBD5E1" : "#243040")}`,
+                      background: clearanceLevel === l.level ? "rgba(61,169,252,0.15)" : "#18202C",
+                      border: `1px solid ${clearanceLevel === l.level ? "#3DA9FC" : "#243040"}`,
                     }}
                   >
-                    <div className="font-mono font-bold text-xs" style={{ color: clearanceLevel === l.level ? "#3DA9FC" : (theme === "gov-light" ? "#0F172A" : "#E8EEF6") }}>
+                    <div className="font-mono font-bold text-xs" style={{ color: clearanceLevel === l.level ? "#3DA9FC" : "#E8EEF6" }}>
                       {l.label}
                     </div>
-                    <div className="label-xs text-[9px]" style={{ color: theme === "gov-light" ? "#64748B" : "#8CA0B8" }}>
+                    <div className="label-xs text-[9px]" style={{ color: "#8CA0B8" }}>
                       {l.desc}
                     </div>
                   </button>
@@ -257,7 +234,7 @@ export default function AuthLogin() {
                 <div
                   className="px-4 py-2 rounded font-mono font-bold text-sm tracking-widest flex items-center justify-center select-none"
                   style={{
-                    background: theme === "gov-light" ? "#E2E8F0" : "#243040",
+                    background: "#243040",
                     color: "#FF9933",
                     letterSpacing: "0.25em",
                     fontStyle: "italic",
@@ -275,16 +252,16 @@ export default function AuthLogin() {
                   placeholder="Enter code"
                   className="w-32 px-3 py-2 rounded font-mono text-xs uppercase focus:outline-none focus:border-[#3DA9FC]"
                   style={{
-                    background: theme === "gov-light" ? "#F8FAFC" : "#18202C",
-                    border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}`,
-                    color: theme === "gov-light" ? "#0F172A" : "#E8EEF6",
+                    background: "#18202C",
+                    border: "1px solid #243040",
+                    color: "#E8EEF6",
                   }}
                 />
                 <button
                   type="button"
                   onClick={refreshCaptcha}
                   className="px-3 py-2 rounded font-mono text-xs cursor-pointer hover:bg-slate-500/10"
-                  style={{ border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}` }}
+                  style={{ border: "1px solid #243040" }}
                   title="Refresh Captcha"
                 >
                   ↻
@@ -325,8 +302,8 @@ export default function AuthLogin() {
         )}
 
         {/* Quick Demo Autofill Profiles */}
-        <div className="border-t pt-4" style={{ borderColor: theme === "gov-light" ? "#E2E8F0" : "#243040" }}>
-          <div className="label-xs mb-2 text-center" style={{ fontSize: 9, color: theme === "gov-light" ? "#64748B" : "#8CA0B8" }}>
+        <div className="border-t pt-4" style={{ borderColor: "#243040" }}>
+          <div className="label-xs mb-2 text-center" style={{ fontSize: 9, color: "#8CA0B8" }}>
             ONE-CLICK DEMO AUTHENTICATION (FOR EVALUATION / PRESENTATION)
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -336,15 +313,15 @@ export default function AuthLogin() {
                 onClick={() => handleQuickDemoLogin(p)}
                 className="p-2 rounded text-left cursor-pointer transition-all hover:border-[#3DA9FC]"
                 style={{
-                  background: theme === "gov-light" ? "#F8FAFC" : "#18202C",
-                  border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}`,
+                  background: "#18202C",
+                  border: "1px solid #243040",
                 }}
               >
-                <div className="font-display font-semibold text-xs truncate" style={{ color: theme === "gov-light" ? "#0F172A" : "#E8EEF6" }}>
+                <div className="font-display font-semibold text-xs truncate text-[#E8EEF6]">
                   {p.name}
                 </div>
                 <div className="label-xs text-[9px] text-[#FF9933]">{p.rank}</div>
-                <div className="font-mono text-[9px]" style={{ color: theme === "gov-light" ? "#64748B" : "#8CA0B8" }}>
+                <div className="font-mono text-[9px] text-[#8CA0B8]">
                   CLEARANCE: LEVEL-{p.clearanceLevel}
                 </div>
               </button>
@@ -354,7 +331,7 @@ export default function AuthLogin() {
       </div>
 
       {/* Footer System Info */}
-      <div className="mt-4 font-mono text-[10px] text-center" style={{ color: theme === "gov-light" ? "#64748B" : "#546678" }}>
+      <div className="mt-4 font-mono text-[10px] text-center text-[#546678]">
         PRAHARI-DT SECURE NODE // DRDO-ADE-GCS-NET · ENCRYPTION: AES-256-GCM · IP: 10.142.18.4
       </div>
     </div>

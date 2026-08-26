@@ -48,7 +48,6 @@ const SCREEN_ORDER: Screen[] = [
 function MainApp() {
   const {
     user,
-    theme,
     activeScreen,
     navigateToScreen,
     activeAirframe,
@@ -115,8 +114,8 @@ function MainApp() {
       style={{
         width: "100vw",
         height: "100vh",
-        background: theme === "gov-light" ? "#EEF2F6" : "#080B10",
-        color: theme === "gov-light" ? "#0F172A" : "#E8EEF6",
+        background: "#080B10",
+        color: "#E8EEF6",
         overflow: "hidden",
         fontFamily: "'Inter', sans-serif",
       }}
@@ -135,26 +134,22 @@ function MainApp() {
         className="flex items-center px-4 gap-2.5"
         style={{
           height: 32,
-          background: theme === "gov-light" ? "#F8FAFC" : "#080B10",
-          borderBottom: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}`,
+          background: "#080B10",
+          borderBottom: "1px solid #243040",
           flexShrink: 0,
         }}
       >
         <div className="twin-pulse" style={{ width: 6, height: 6, borderRadius: "50%", background: "#3DA9FC" }} />
-        <span className="font-display font-semibold" style={{ fontSize: 12, color: theme === "gov-light" ? "#0F172A" : "#E8EEF6", letterSpacing: "0.06em" }}>
+        <span className="font-display font-semibold text-xs tracking-wider text-[#E8EEF6]">
           {SCREEN_TITLES[activeScreen]}
         </span>
         <div style={{ flex: 1 }} />
         <div className="flex items-center gap-3">
-          <span className="font-mono text-[10px]" style={{ color: theme === "gov-light" ? "#475569" : "#8CA0B8" }}>
+          <span className="font-mono text-[10px] text-[#8CA0B8]">
             AIRFRAME: <strong className="text-[#3DA9FC]">{activeAirframe.tail}</strong> · {activeAirframe.platform}
           </span>
           <span
-            className="font-mono text-[9px] px-1.5 py-0.5 rounded"
-            style={{
-              border: `1px solid ${theme === "gov-light" ? "#CBD5E1" : "#243040"}`,
-              color: theme === "gov-light" ? "#64748B" : "#546678",
-            }}
+            className="font-mono text-[9px] px-1.5 py-0.5 rounded border border-[#243040] text-[#546678]"
           >
             CLEARANCE: L-{user.clearanceLevel} · {user.rank}
           </span>
@@ -169,10 +164,7 @@ function MainApp() {
           expanded={navExpanded}
           onToggle={() => setNavExpanded((p) => !p)}
         />
-        <div
-          className="flex-1 min-w-0 overflow-hidden"
-          style={{ background: theme === "gov-light" ? "#EEF2F6" : "#080B10" }}
-        >
+        <div className="flex-1 min-w-0 overflow-hidden bg-[#080B10]">
           <ScreenComponent />
         </div>
       </div>
@@ -186,11 +178,8 @@ function MainApp() {
       {/* Global Toast Notification */}
       {toastMessage && (
         <div
-          className="fixed top-16 right-6 z-50 px-4 py-2.5 rounded shadow-2xl font-mono text-xs font-semibold flex items-center gap-2 animate-bounce"
+          className="fixed top-16 right-6 z-50 px-4 py-2.5 rounded shadow-2xl font-mono text-xs font-semibold flex items-center gap-2 animate-bounce bg-[#18202C] border border-[#3DA9FC] text-[#E8EEF6]"
           style={{
-            background: theme === "gov-light" ? "#FFFFFF" : "#18202C",
-            border: "1px solid #3DA9FC",
-            color: theme === "gov-light" ? "#0F172A" : "#E8EEF6",
             boxShadow: "0 4px 24px rgba(61,169,252,0.3)",
           }}
         >
