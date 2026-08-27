@@ -18,8 +18,8 @@ export default function ClassificationStrip() {
       className="flex items-center justify-between px-4 font-mono"
       style={{
         height: 24,
-        background: "var(--bg-base)",
-        borderBottom: "1px solid var(--stroke-hairline)",
+        background: "var(--bg-command)",
+        borderBottom: "1px solid var(--border-command)",
         fontSize: 10,
         letterSpacing: "0.06em",
       }}
@@ -40,9 +40,9 @@ export default function ClassificationStrip() {
       <span style={{ color: "var(--twin-predicted)", fontWeight: 600 }}>PRAHARI-DT v1.0</span>
       <div className="flex items-center gap-3">
         <span style={{ color: "var(--text-secondary)" }}>UTC {utc}</span>
-        <span style={{ color: "var(--text-muted)" }}>|</span>
+        <span style={{ color: "var(--text-command-muted)" }}>|</span>
         <span style={{ color: "var(--text-secondary)" }}>IST {ist}</span>
-        <span style={{ color: "var(--text-muted)" }}>|</span>
+        <span style={{ color: "var(--text-command-muted)" }}>|</span>
         <span style={{ color: "var(--text-muted)" }}>SESSION: OFFR-7214</span>
       </div>
     </div>

@@ -50,8 +50,8 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
       className="flex flex-col select-none"
       style={{
         width: w,
-        background: "var(--bg-panel)",
-        borderRight: "1px solid var(--stroke-hairline)",
+        background: "var(--bg-nav)",
+        borderRight: "1px solid var(--border-command)",
         transition: "width 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
         flexShrink: 0,
         overflow: "hidden",
@@ -63,9 +63,9 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
         className="flex items-center justify-center cursor-pointer hover:text-[var(--text-primary)] transition-colors"
         style={{
           height: 40,
-          borderBottom: "1px solid var(--stroke-hairline)",
+          borderBottom: "1px solid var(--border-command)",
           background: "transparent",
-          color: "var(--text-muted)",
+          color: "var(--text-command-muted)",
           fontSize: 14,
         }}
         title={expanded ? "Collapse Navigation Rail" : "Expand Navigation Rail"}
@@ -89,7 +89,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
                 padding: expanded ? "0 14px" : "0",
                 justifyContent: expanded ? "flex-start" : "center",
                 gap: 10,
-                background: isActive ? "rgba(61,169,252,0.1)" : "transparent",
+                background: isActive ? "rgba(216,228,240,0.12)" : "transparent",
                 borderLeft: isActive ? "3px solid var(--state-advisory)" : "3px solid transparent",
                 transition: "background 0.15s, border-color 0.15s",
               }}
@@ -98,7 +98,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
               <span
                 style={{
                   fontSize: 16,
-                  color: isActive ? "var(--state-advisory)" : "var(--text-secondary)",
+                  color: isActive ? "var(--state-advisory)" : "var(--text-command-muted)",
                   width: 20,
                   textAlign: "center",
                   flexShrink: 0,
@@ -113,7 +113,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
                   style={{
                     fontSize: 12,
                     fontWeight: isActive ? 700 : 500,
-                    color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
+                    color: isActive ? "var(--text-command)" : "var(--text-command-muted)",
                     letterSpacing: "0.04em",
                     whiteSpace: "nowrap",
                     overflow: "hidden",
@@ -155,11 +155,11 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
       {/* Tier legend */}
       <div
         className="flex flex-col gap-1 p-2.5"
-        style={{ borderTop: "1px solid var(--stroke-hairline)", background: "var(--bg-base)" }}
+        style={{ borderTop: "1px solid var(--border-command)", background: "var(--bg-nav)" }}
       >
         {expanded ? (
           <>
-            <span className="label-xs" style={{ fontSize: 9, color: "var(--text-muted)" }}>
+            <span className="label-xs" style={{ fontSize: 9, color: "var(--text-command-muted)" }}>
               TELEMETRY DATA TIERS
             </span>
             {[
@@ -169,7 +169,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
             ].map((t) => (
               <div key={t.label} className="flex items-center gap-2">
                 <div style={{ width: 6, height: 6, background: t.color, borderRadius: 1, flexShrink: 0 }} />
-                <span className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
+                <span className="label-xs" style={{ fontSize: 9, color: "var(--text-command-muted)" }}>
                   {t.label}
                 </span>
               </div>
