@@ -2,7 +2,7 @@
 @import 'tailwindcss';
 
 :root,
-[data-theme='dark'] {
+[data-theme="dark"] {
   --bg-command: #131E2E;
   --bg-nav: #0F1824;
   --border-command: #2B3E57;
@@ -38,6 +38,7 @@
   --chart-tooltip-bg: #FFFFFF;
   --chart-tooltip-border: #9DB0C8;
   --chart-tooltip-text: #172033;
+  --bg-nav: #FFFFFF;
 }
 
 [data-theme='dark'] {
@@ -68,6 +69,7 @@
   --chart-tooltip-bg: #101620;
   --chart-tooltip-border: #243040;
   --chart-tooltip-text: #E8EEF6;
+  --bg-nav: #0F1824;
 }
 
 @theme {

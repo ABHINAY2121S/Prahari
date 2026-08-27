@@ -51,7 +51,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
       style={{
         width: w,
         background: "var(--bg-nav)",
-        borderRight: "1px solid var(--border-command)",
+        borderRight: "1px solid var(--stroke-hairline)",
         transition: "width 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
         flexShrink: 0,
         overflow: "hidden",
@@ -63,9 +63,9 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
         className="flex items-center justify-center cursor-pointer hover:text-[var(--text-primary)] transition-colors"
         style={{
           height: 40,
-          borderBottom: "1px solid var(--border-command)",
+          borderBottom: "1px solid var(--stroke-hairline)",
           background: "transparent",
-          color: "var(--text-command-muted)",
+          color: "var(--text-muted)",
           fontSize: 14,
         }}
         title={expanded ? "Collapse Navigation Rail" : "Expand Navigation Rail"}
@@ -98,7 +98,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
               <span
                 style={{
                   fontSize: 16,
-                  color: isActive ? "var(--state-advisory)" : "var(--text-command-muted)",
+                  color: isActive ? "var(--state-advisory)" : "var(--text-secondary)",
                   width: 20,
                   textAlign: "center",
                   flexShrink: 0,
@@ -113,7 +113,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
                   style={{
                     fontSize: 12,
                     fontWeight: isActive ? 700 : 500,
-                    color: isActive ? "var(--text-command)" : "var(--text-command-muted)",
+                    color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                     letterSpacing: "0.04em",
                     whiteSpace: "nowrap",
                     overflow: "hidden",
@@ -155,11 +155,11 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
       {/* Tier legend */}
       <div
         className="flex flex-col gap-1 p-2.5"
-        style={{ borderTop: "1px solid var(--border-command)", background: "var(--bg-nav)" }}
+        style={{ borderTop: "1px solid var(--stroke-hairline)", background: "var(--bg-raised)" }}
       >
         {expanded ? (
           <>
-            <span className="label-xs" style={{ fontSize: 9, color: "var(--text-command-muted)" }}>
+            <span className="label-xs" style={{ fontSize: 9, color: "var(--text-muted)" }}>
               TELEMETRY DATA TIERS
             </span>
             {[
@@ -169,7 +169,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
             ].map((t) => (
               <div key={t.label} className="flex items-center gap-2">
                 <div style={{ width: 6, height: 6, background: t.color, borderRadius: 1, flexShrink: 0 }} />
-                <span className="label-xs" style={{ fontSize: 9, color: "var(--text-command-muted)" }}>
+                <span className="label-xs" style={{ fontSize: 9, color: "var(--text-muted)" }}>
                   {t.label}
                 </span>
               </div>
