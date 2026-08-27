@@ -16,8 +16,8 @@ const BASE_SUBSYSTEMS = [
 function cellColor(val: number, nominal: number, thresh: number) {
   const dev = Math.abs(val - nominal);
   const range = Math.abs(thresh - nominal);
-  if (val >= thresh) return "#FF7A2F";
-  if (dev > range * 0.6) return "#F5B335";
+  if (val >= thresh) return "var(--state-warning)";
+  if (dev > range * 0.6) return "var(--state-caution)";
   return "transparent";
 }
 
@@ -35,20 +35,20 @@ export default function S2_Health() {
     if (sub.id === "lubrication" && hasOilFault) index = Math.min(index, 68);
     if (sub.id === "mechanical" && hasVibFault) index = Math.min(index, 74);
 
-    const color = index > 90 ? "#00C08B" : index > 80 ? "#F5B335" : "#FF7A2F";
+    const color = index > 90 ? "var(--state-nominal)" : index > 80 ? "var(--state-caution)" : "var(--state-warning)";
     return { ...sub, index, color };
   });
 
   const waterfallData = [
-    { name: "PERFECT", value: 100, fill: "#243040" },
-    { name: "COMBUSTION", value: hasCyl3Fault ? -12.4 : -8.3, fill: "#FF7A2F" },
-    { name: "THERMAL", value: -2.1, fill: "#F5B335" },
-    { name: "MECHANICAL", value: hasVibFault ? -4.5 : -1.4, fill: "#F5B335" },
-    { name: "LUBRICATION", value: hasOilFault ? -6.2 : -0.8, fill: "#8CA0B8" },
-    { name: "FUEL", value: 0, fill: "#243040" },
-    { name: "ELECTRICAL", value: 0, fill: "#243040" },
-    { name: "SENSORS", value: 0, fill: "#243040" },
-    { name: "CURRENT EHI", value: activeAirframe.ehi, fill: "#3DA9FC" },
+    { name: "PERFECT", value: 100, fill: "var(--stroke-hairline)" },
+    { name: "COMBUSTION", value: hasCyl3Fault ? -12.4 : -8.3, fill: "var(--state-warning)" },
+    { name: "THERMAL", value: -2.1, fill: "var(--state-caution)" },
+    { name: "MECHANICAL", value: hasVibFault ? -4.5 : -1.4, fill: "var(--state-caution)" },
+    { name: "LUBRICATION", value: hasOilFault ? -6.2 : -0.8, fill: "var(--text-secondary)" },
+    { name: "FUEL", value: 0, fill: "var(--stroke-hairline)" },
+    { name: "ELECTRICAL", value: 0, fill: "var(--stroke-hairline)" },
+    { name: "SENSORS", value: 0, fill: "var(--stroke-hairline)" },
+    { name: "CURRENT EHI", value: activeAirframe.ehi, fill: "var(--state-advisory)" },
   ];
 
   const cylinderMatrix = [
@@ -62,7 +62,7 @@ export default function S2_Health() {
     <div className="flex gap-2 h-full overflow-hidden p-2">
       {/* Left: Subsystem health list */}
       <div className="flex flex-col gap-2" style={{ width: 300, flexShrink: 0, overflowY: "auto" }}>
-        <div className="label-xs" style={{ color: "#E8EEF6", fontSize: 10 }}>
+        <div className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10 }}>
           SUBSYSTEM HEALTH INDICES · {activeAirframe.tail}
         </div>
 
@@ -74,13 +74,13 @@ export default function S2_Health() {
               className="font-mono"
               style={{
                 fontSize: 20,
-                color: activeAirframe.ehi > 80 ? "#00C08B" : activeAirframe.ehi > 65 ? "#F5B335" : "#FF3B4E",
+                color: activeAirframe.ehi > 80 ? "var(--state-nominal)" : activeAirframe.ehi > 65 ? "var(--state-caution)" : "var(--state-critical)",
                 fontWeight: 600,
               }}
             >
               {activeAirframe.ehi} / 100
             </div>
-            <div className="font-mono" style={{ fontSize: 11, color: "#F5B335" }}>
+            <div className="font-mono" style={{ fontSize: 11, color: "var(--state-caution)" }}>
               −0.8 pts/hr degradation
             </div>
           </div>
@@ -92,31 +92,31 @@ export default function S2_Health() {
             <div
               key={sub.id}
               onClick={() => setSelectedSubsystem(sub.id)}
-              className="panel p-2.5 cursor-pointer transition-all hover:border-[#3DA9FC]"
+              className="panel p-2.5 cursor-pointer transition-all hover:border-[var(--state-advisory)]"
               style={{
-                borderLeft: isSelected ? `3px solid ${sub.color}` : "1px solid #243040",
-                background: isSelected ? "rgba(61,169,252,0.06)" : "#101620",
+                borderLeft: isSelected ? `3px solid ${sub.color}` : "1px solid var(--stroke-hairline)",
+                background: isSelected ? "rgba(61,169,252,0.06)" : "var(--bg-panel)",
               }}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="label-xs" style={{ fontSize: 10, color: isSelected ? "#E8EEF6" : "#8CA0B8" }}>
+                <span className="label-xs" style={{ fontSize: 10, color: isSelected ? "var(--text-primary)" : "var(--text-secondary)" }}>
                   {sub.label}
                 </span>
                 <div className="flex items-center gap-2">
                   <span className="font-mono" style={{ fontSize: 13, color: sub.color, fontWeight: 600 }}>
                     {sub.index}
                   </span>
-                  <span className="font-mono" style={{ fontSize: 10, color: sub.trend < 0 ? "#F5B335" : "#00C08B" }}>
+                  <span className="font-mono" style={{ fontSize: 10, color: sub.trend < 0 ? "var(--state-caution)" : "var(--state-nominal)" }}>
                     {sub.trend > 0 ? "+" : ""}{sub.trend}/hr
                   </span>
                 </div>
               </div>
-              <div style={{ height: 6, background: "#18202C", borderRadius: 3, marginBottom: 4, overflow: "hidden" }}>
+              <div style={{ height: 6, background: "var(--bg-raised)", borderRadius: 3, marginBottom: 4, overflow: "hidden" }}>
                 <div style={{ width: `${sub.index}%`, height: "100%", background: sub.color, borderRadius: 3, transition: "width 0.3s" }} />
               </div>
               <div className="flex gap-2 flex-wrap">
                 {sub.params.map((p) => (
-                  <span key={p} style={{ fontSize: 10, color: "#546678" }}>
+                  <span key={p} style={{ fontSize: 10, color: "var(--text-muted)" }}>
                     · {p}
                   </span>
                 ))}
@@ -131,20 +131,20 @@ export default function S2_Health() {
         {/* EHI Waterfall */}
         <div className="panel p-3" style={{ height: "46%" }}>
           <div className="flex items-center justify-between mb-1">
-            <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 11 }}>
+            <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 11 }}>
               EHI WATERFALL — CONTRIBUTION TO DEGRADATION FROM 100
             </span>
-            <span className="label-xs" style={{ fontSize: 9, color: "#8CA0B8" }}>
+            <span className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
               ACTIVE AIRFRAME: {activeAirframe.tail}
             </span>
           </div>
           <ResponsiveContainer width="100%" height="85%">
             <BarChart data={waterfallData} margin={{ top: 8, right: 8, left: -10, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="2 4" stroke="#243040" />
-              <XAxis dataKey="name" tick={{ fill: "#546678", fontSize: 9, fontFamily: "IBM Plex Mono" }} angle={-25} textAnchor="end" />
-              <YAxis domain={[-15, 105]} tick={{ fill: "#546678", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
+              <CartesianGrid strokeDasharray="2 4" stroke="var(--stroke-hairline)" />
+              <XAxis dataKey="name" tick={{ fill: "var(--text-muted)", fontSize: 9, fontFamily: "IBM Plex Mono" }} angle={-25} textAnchor="end" />
+              <YAxis domain={[-15, 105]} tick={{ fill: "var(--text-muted)", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
               <Tooltip
-                contentStyle={{ background: "#18202C", border: "1px solid #243040", fontSize: 11, fontFamily: "IBM Plex Mono" }}
+                contentStyle={{ background: "var(--bg-raised)", border: "1px solid var(--stroke-hairline)", fontSize: 11, fontFamily: "IBM Plex Mono" }}
                 cursor={{ fill: "rgba(61,169,252,0.05)" }}
               />
               <Bar dataKey="value" radius={[2, 2, 0, 0]}>
@@ -158,18 +158,18 @@ export default function S2_Health() {
 
         {/* Cylinder Matrix */}
         <div className="panel p-3 flex-1 flex flex-col justify-between">
-          <div className="label-xs mb-2" style={{ color: "#E8EEF6", fontSize: 11 }}>
+          <div className="label-xs mb-2" style={{ color: "var(--text-primary)", fontSize: 11 }}>
             LIVE PER-CYLINDER COMPARISON MATRIX
           </div>
           <div className="overflow-auto">
             <table className="data-table" style={{ borderCollapse: "collapse", width: "100%" }}>
               <thead>
                 <tr>
-                  <th style={{ background: "#18202C", color: "#8CA0B8", fontSize: 10, padding: "6px 12px", textAlign: "left", border: "1px solid #243040" }}>
+                  <th style={{ background: "var(--bg-raised)", color: "var(--text-secondary)", fontSize: 10, padding: "6px 12px", textAlign: "left", border: "1px solid var(--stroke-hairline)" }}>
                     PARAMETER
                   </th>
                   {[1, 2, 3, 4].map((c) => (
-                    <th key={c} style={{ background: "#18202C", color: "#8CA0B8", fontSize: 10, padding: "6px 16px", textAlign: "center", border: "1px solid #243040" }}>
+                    <th key={c} style={{ background: "var(--bg-raised)", color: "var(--text-secondary)", fontSize: 10, padding: "6px 16px", textAlign: "center", border: "1px solid var(--stroke-hairline)" }}>
                       CYL {c}
                     </th>
                   ))}
@@ -178,7 +178,7 @@ export default function S2_Health() {
               <tbody>
                 {cylinderMatrix.map((row) => (
                   <tr key={row.param}>
-                    <td style={{ color: "#8CA0B8", fontSize: 11, padding: "6px 12px", border: "1px solid #1a2233", fontFamily: "Inter" }}>
+                    <td style={{ color: "var(--text-secondary)", fontSize: 11, padding: "6px 12px", border: "1px solid var(--table-border)", fontFamily: "Inter" }}>
                       {row.param}
                     </td>
                     {row.vals.map((val, ci) => {
@@ -193,8 +193,8 @@ export default function S2_Health() {
                             textAlign: "center",
                             padding: "6px 16px",
                             background: bg,
-                            color: bg !== "transparent" ? (bg === "#FF7A2F" ? "#FF7A2F" : "#F5B335") : "#E8EEF6",
-                            border: "1px solid #1a2233",
+                            color: bg !== "transparent" ? (bg === "var(--state-warning)" ? "var(--state-warning)" : "var(--state-caution)") : "var(--text-primary)",
+                            border: "1px solid var(--table-border)",
                           }}
                         >
                           {val}
@@ -212,15 +212,15 @@ export default function S2_Health() {
           <div className="flex items-center gap-4 mt-2">
             <span className="label-xs" style={{ fontSize: 9 }}>LEGEND:</span>
             <div className="flex items-center gap-1">
-              <div style={{ width: 10, height: 10, background: "#FF7A2F", borderRadius: 2 }} />
-              <span className="label-xs" style={{ fontSize: 9, color: "#FF7A2F" }}>ABOVE THRESHOLD</span>
+              <div style={{ width: 10, height: 10, background: "var(--state-warning)", borderRadius: 2 }} />
+              <span className="label-xs" style={{ fontSize: 9, color: "var(--state-warning)" }}>ABOVE THRESHOLD</span>
             </div>
             <div className="flex items-center gap-1">
-              <div style={{ width: 10, height: 10, background: "#F5B335", borderRadius: 2 }} />
-              <span className="label-xs" style={{ fontSize: 9, color: "#F5B335" }}>DEVIATION &gt;60%</span>
+              <div style={{ width: 10, height: 10, background: "var(--state-caution)", borderRadius: 2 }} />
+              <span className="label-xs" style={{ fontSize: 9, color: "var(--state-caution)" }}>DEVIATION &gt;60%</span>
             </div>
             <div className="flex items-center gap-1">
-              <div style={{ width: 10, height: 10, background: "transparent", border: "1px solid #243040", borderRadius: 2 }} />
+              <div style={{ width: 10, height: 10, background: "transparent", border: "1px solid var(--stroke-hairline)", borderRadius: 2 }} />
               <span className="label-xs" style={{ fontSize: 9 }}>NOMINAL</span>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function S2_Health() {
 
       {/* Right: 30-day trends */}
       <div className="flex flex-col gap-2" style={{ width: 200, flexShrink: 0, overflowY: "auto" }}>
-        <div className="label-xs" style={{ color: "#E8EEF6", fontSize: 10 }}>30-DAY TREND SPARKLINES</div>
+        <div className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10 }}>30-DAY TREND SPARKLINES</div>
         {subsystems.map((sub) => {
           const trend = Array.from({ length: 30 }, (_, i) => {
             const val = sub.index + (i - 29) * Math.abs(sub.trend) / 3 + (Math.random() - 0.5) * 3;
@@ -245,7 +245,7 @@ export default function S2_Health() {
           return (
             <div key={sub.id} className="panel p-2">
               <div className="flex items-center justify-between mb-1">
-                <span className="label-xs" style={{ fontSize: 9, color: "#8CA0B8" }}>{sub.label}</span>
+                <span className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>{sub.label}</span>
                 <span className="font-mono font-semibold" style={{ fontSize: 11, color: sub.color }}>{sub.index}</span>
               </div>
               <svg width={160} height={30}>

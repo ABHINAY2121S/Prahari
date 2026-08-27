@@ -7,11 +7,11 @@ interface Props {
 }
 
 const CONFIG: Record<Severity, { color: string; bg: string; icon: string; label: string }> = {
-  nominal:  { color: "#00C08B", bg: "rgba(0,192,139,0.12)",  icon: "✓", label: "NOMINAL" },
-  advisory: { color: "#3DA9FC", bg: "rgba(61,169,252,0.12)", icon: "ℹ", label: "ADVISORY" },
-  caution:  { color: "#F5B335", bg: "rgba(245,179,53,0.12)", icon: "△", label: "CAUTION" },
-  warning:  { color: "#FF7A2F", bg: "rgba(255,122,47,0.12)", icon: "▲", label: "WARNING" },
-  critical: { color: "#FF3B4E", bg: "rgba(255,59,78,0.12)",  icon: "⬟", label: "CRITICAL" },
+  nominal:  { color: "var(--state-nominal)", bg: "rgba(0,192,139,0.12)",  icon: "✓", label: "NOMINAL" },
+  advisory: { color: "var(--state-advisory)", bg: "var(--table-selected", icon: "ℹ", label: "ADVISORY" },
+  caution:  { color: "var(--state-caution)", bg: "rgba(245,179,53,0.12)", icon: "△", label: "CAUTION" },
+  warning:  { color: "var(--state-warning)", bg: "rgba(255,122,47,0.12)", icon: "▲", label: "WARNING" },
+  critical: { color: "var(--state-critical)", bg: "rgba(255,59,78,0.12)",  icon: "⬟", label: "CRITICAL" },
 };
 
 export default function SeverityChip({ severity, label, size = "sm" }: Props) {

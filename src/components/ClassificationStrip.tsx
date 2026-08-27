@@ -18,8 +18,8 @@ export default function ClassificationStrip() {
       className="flex items-center justify-between px-4 font-mono"
       style={{
         height: 24,
-        background: "#080B10",
-        borderBottom: "1px solid #243040",
+        background: "var(--bg-base)",
+        borderBottom: "1px solid var(--stroke-hairline)",
         fontSize: 10,
         letterSpacing: "0.06em",
       }}
@@ -29,21 +29,21 @@ export default function ClassificationStrip() {
           style={{
             width: 8,
             height: 8,
-            background: "#FF9933",
+            background: "var(--accent-india)",
             borderRadius: "50%",
           }}
         />
-        <span style={{ color: "#FF9933", fontWeight: 600 }}>RESTRICTED</span>
-        <span style={{ color: "#546678" }}>—</span>
-        <span style={{ color: "#8CA0B8" }}>DRDO / ADE · PRAHARI-DT</span>
+        <span style={{ color: "var(--accent-india)", fontWeight: 600 }}>RESTRICTED</span>
+        <span style={{ color: "var(--text-muted)" }}>—</span>
+        <span style={{ color: "var(--text-secondary)" }}>DRDO / ADE · PRAHARI-DT</span>
       </div>
-      <span style={{ color: "#7B61FF", fontWeight: 600 }}>PRAHARI-DT v1.0</span>
+      <span style={{ color: "var(--twin-predicted)", fontWeight: 600 }}>PRAHARI-DT v1.0</span>
       <div className="flex items-center gap-3">
-        <span style={{ color: "#8CA0B8" }}>UTC {utc}</span>
-        <span style={{ color: "#546678" }}>|</span>
-        <span style={{ color: "#8CA0B8" }}>IST {ist}</span>
-        <span style={{ color: "#546678" }}>|</span>
-        <span style={{ color: "#546678" }}>SESSION: OFFR-7214</span>
+        <span style={{ color: "var(--text-secondary)" }}>UTC {utc}</span>
+        <span style={{ color: "var(--text-muted)" }}>|</span>
+        <span style={{ color: "var(--text-secondary)" }}>IST {ist}</span>
+        <span style={{ color: "var(--text-muted)" }}>|</span>
+        <span style={{ color: "var(--text-muted)" }}>SESSION: OFFR-7214</span>
       </div>
     </div>
   );

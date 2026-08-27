@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { useTwin } from "../context/TwinContext";
 
 function StatusDot({ status }: { status: string }) {
-  const color = status === "live" ? "#00C08B" : status === "drifting" ? "#F5B335" : status === "stale" ? "#FF7A2F" : "#FF3B4E";
+  const color = status === "live" ? "var(--state-nominal)" : status === "drifting" ? "var(--state-caution)" : status === "stale" ? "var(--state-warning)" : "var(--state-critical)";
   return <div style={{ width: 8, height: 8, borderRadius: "50%", background: color, flexShrink: 0 }} />;
 }
 
@@ -36,13 +36,13 @@ export default function S9_System() {
     <div className="flex gap-2 h-full overflow-hidden p-2">
       {/* Left: Bus + Link health */}
       <div className="flex flex-col gap-2" style={{ width: 260, flexShrink: 0 }}>
-        <div className="label-xs" style={{ color: "#E8EEF6", fontSize: 10 }}>
+        <div className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10 }}>
           BUS & LINK INTEGRITY · {activeAirframe.tail}
         </div>
 
         {/* CAN Bus stats */}
         <div className="panel p-3">
-          <div className="label-xs mb-2" style={{ fontSize: 10, color: "#E8EEF6" }}>
+          <div className="label-xs mb-2" style={{ fontSize: 10, color: "var(--text-primary)" }}>
             CAN BUS / SOCKETCAN
           </div>
           {[
@@ -51,10 +51,10 @@ export default function S9_System() {
             { label: "PKT LOSS", val: `${busStats.pktLoss}%`, ok: busStats.pktLoss < 1 },
             { label: "LATENCY", val: `${busStats.latencyMs} ms`, ok: busStats.latencyMs < 200 },
           ].map((s) => (
-            <div key={s.label} className="flex items-center justify-between py-1" style={{ borderBottom: "1px solid #1a2233" }}>
+            <div key={s.label} className="flex items-center justify-between py-1" style={{ borderBottom: "1px solid var(--table-border)" }}>
               <span className="label-xs" style={{ fontSize: 10 }}>{s.label}</span>
               <div className="flex items-center gap-2">
-                <span className="font-mono font-medium" style={{ fontSize: 12, color: s.ok ? "#00C08B" : "#F5B335" }}>
+                <span className="font-mono font-medium" style={{ fontSize: 12, color: s.ok ? "var(--state-nominal)" : "var(--state-caution)" }}>
                   {s.val}
                 </span>
                 <StatusDot status={s.ok ? "live" : "drifting"} />
@@ -65,7 +65,7 @@ export default function S9_System() {
 
         {/* ECU / FADEC */}
         <div className="panel p-3">
-          <div className="label-xs mb-2" style={{ fontSize: 10, color: "#E8EEF6" }}>
+          <div className="label-xs mb-2" style={{ fontSize: 10, color: "var(--text-primary)" }}>
             ECU / FADEC LINK
           </div>
           {[
@@ -74,10 +74,10 @@ export default function S9_System() {
             { label: "ECU VERSION", val: "v2.4.1", status: "live" },
             { label: "HEARTBEAT", val: "50 Hz", status: "live" },
           ].map((s) => (
-            <div key={s.label} className="flex items-center justify-between py-1" style={{ borderBottom: "1px solid #1a2233" }}>
+            <div key={s.label} className="flex items-center justify-between py-1" style={{ borderBottom: "1px solid var(--table-border)" }}>
               <span className="label-xs" style={{ fontSize: 10 }}>{s.label}</span>
               <div className="flex items-center gap-2">
-                <span className="font-mono font-medium" style={{ fontSize: 11, color: "#00C08B" }}>
+                <span className="font-mono font-medium" style={{ fontSize: 11, color: "var(--state-nominal)" }}>
                   {s.val}
                 </span>
                 <StatusDot status={s.status} />
@@ -88,21 +88,21 @@ export default function S9_System() {
 
         {/* Edge/Cloud split */}
         <div className="panel p-3">
-          <div className="label-xs mb-2" style={{ fontSize: 10, color: "#E8EEF6" }}>
+          <div className="label-xs mb-2" style={{ fontSize: 10, color: "var(--text-primary)" }}>
             COMPUTE TOPOLOGY
           </div>
           <div className="flex gap-2 mb-2">
             <div className="flex-1 raised p-2 text-center">
               <div className="label-xs" style={{ fontSize: 9 }}>EDGE (ONBOARD)</div>
-              <div className="font-mono font-bold" style={{ fontSize: 18, color: "#3DA9FC" }}>72%</div>
+              <div className="font-mono font-bold" style={{ fontSize: 18, color: "var(--state-advisory)" }}>72%</div>
             </div>
             <div className="flex-1 raised p-2 text-center">
               <div className="label-xs" style={{ fontSize: 9 }}>CLOUD (GCS)</div>
-              <div className="font-mono font-bold" style={{ fontSize: 18, color: "#7B61FF" }}>28%</div>
+              <div className="font-mono font-bold" style={{ fontSize: 18, color: "var(--twin-predicted)" }}>28%</div>
             </div>
           </div>
-          <div style={{ height: 6, background: "#18202C", borderRadius: 3, overflow: "hidden" }}>
-            <div style={{ width: "72%", height: "100%", background: "linear-gradient(90deg,#3DA9FC,#7B61FF)", borderRadius: 3 }} />
+          <div style={{ height: 6, background: "var(--bg-raised)", borderRadius: 3, overflow: "hidden" }}>
+            <div style={{ width: "72%", height: "100%", background: "linear-gradient(90deg,var(--state-advisory),var(--twin-predicted))", borderRadius: 3 }} />
           </div>
         </div>
       </div>
@@ -110,13 +110,13 @@ export default function S9_System() {
       {/* Center: Sensor status + drift detector + Calibration Actions */}
       <div className="flex flex-col gap-2 flex-1 min-w-0">
         <div className="flex items-center justify-between">
-          <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 10 }}>
+          <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10 }}>
             PER-SENSOR TELEMETRY MATRIX & RECALIBRATION
           </span>
           <div className="flex gap-3">
-            <span className="font-mono text-xs text-[#00C08B] font-semibold">{live} NOMINAL</span>
-            <span className="font-mono text-xs text-[#F5B335] font-semibold">{drifting} DRIFTING</span>
-            <span className="font-mono text-xs text-[#FF3B4E]">0 FAILED</span>
+            <span className="font-mono text-xs text-[var(--state-nominal)] font-semibold">{live} NOMINAL</span>
+            <span className="font-mono text-xs text-[var(--state-caution)] font-semibold">{drifting} DRIFTING</span>
+            <span className="font-mono text-xs text-[var(--state-critical)]">0 FAILED</span>
           </div>
         </div>
 
@@ -137,10 +137,10 @@ export default function S9_System() {
                 const isHigh = Math.abs(s.residual) > 5;
                 return (
                   <tr key={s.id} style={{ background: isDrifting ? "rgba(245,179,53,0.06)" : undefined }}>
-                    <td className="font-mono text-xs font-semibold text-[#3DA9FC]" style={{ padding: "6px 8px" }}>
+                    <td className="font-mono text-xs font-semibold text-[var(--state-advisory)]" style={{ padding: "6px 8px" }}>
                       {s.id}
                     </td>
-                    <td style={{ fontSize: 11, color: "#E8EEF6", padding: "6px 8px" }}>{s.name}</td>
+                    <td style={{ fontSize: 11, color: "var(--text-primary)", padding: "6px 8px" }}>{s.name}</td>
                     <td style={{ padding: "6px 8px" }}>
                       <div className="flex items-center gap-1.5">
                         <StatusDot status={s.status} />
@@ -148,7 +148,7 @@ export default function S9_System() {
                           className="font-mono font-bold"
                           style={{
                             fontSize: 10,
-                            color: s.status === "live" ? "#00C08B" : s.status === "drifting" ? "#F5B335" : "#FF3B4E",
+                            color: s.status === "live" ? "var(--state-nominal)" : s.status === "drifting" ? "var(--state-caution)" : "var(--state-critical)",
                           }}
                         >
                           {s.status.toUpperCase()}
@@ -158,18 +158,18 @@ export default function S9_System() {
                     <td style={{ padding: "6px 8px" }}>
                       <span
                         className="font-mono font-bold"
-                        style={{ fontSize: 12, color: isHigh ? "#FF7A2F" : "#00C08B" }}
+                        style={{ fontSize: 12, color: isHigh ? "var(--state-warning)" : "var(--state-nominal)" }}
                       >
                         {s.residual > 0 ? "+" : ""}{s.residual.toFixed(1)}%
                       </span>
                     </td>
                     <td style={{ padding: "6px 8px" }}>
-                      <div style={{ height: 4, background: "#18202C", borderRadius: 2, overflow: "hidden", width: 90 }}>
+                      <div style={{ height: 4, background: "var(--bg-raised)", borderRadius: 2, overflow: "hidden", width: 90 }}>
                         <div
                           style={{
                             width: `${Math.min(100, (s.residual / 45) * 100)}%`,
                             height: "100%",
-                            background: isHigh ? "#FF7A2F" : isDrifting ? "#F5B335" : "#00C08B",
+                            background: isHigh ? "var(--state-warning)" : isDrifting ? "var(--state-caution)" : "var(--state-nominal)",
                             borderRadius: 2,
                           }}
                         />
@@ -179,13 +179,13 @@ export default function S9_System() {
                       {isDrifting || isHigh ? (
                         <button
                           onClick={() => calibrateSensor(s.id)}
-                          className="font-display font-semibold text-[10px] px-2 py-0.5 rounded cursor-pointer transition-colors hover:bg-[#00C08B]"
-                          style={{ background: "rgba(0,192,139,0.15)", color: "#00C08B", border: "1px solid #00C08B40" }}
+                          className="font-display font-semibold text-[10px] px-2 py-0.5 rounded cursor-pointer transition-colors hover:bg-[var(--state-nominal)]"
+                          style={{ background: "rgba(0,192,139,0.15)", color: "var(--state-nominal)", border: "1px solid var(--state-nominal)40" }}
                         >
                           RECALIBRATE / ZERO
                         </button>
                       ) : (
-                        <span className="label-xs" style={{ fontSize: 9, color: "#546678" }}>
+                        <span className="label-xs" style={{ fontSize: 9, color: "var(--text-muted)" }}>
                           CALIBRATED ✓
                         </span>
                       )}
@@ -200,34 +200,34 @@ export default function S9_System() {
         {/* Key insight */}
         <div
           className="flex items-center gap-2 p-3 rounded"
-          style={{ background: "rgba(61,169,252,0.06)", border: "1px solid rgba(61,169,252,0.2)" }}
+          style={{ background: "rgba(61,169,252,0.06)", border: "1px solid var(--table-selected)" }}
         >
-          <span style={{ fontSize: 16, color: "#3DA9FC" }}>ℹ</span>
-          <p style={{ margin: 0, fontSize: 12, color: "#8CA0B8", lineHeight: 1.4 }}>
-            <strong style={{ color: "#3DA9FC" }}>Digital Twin Hardware-in-the-Loop:</strong> If both CHT & EGT residuals spike simultaneously with injection quantity changes, the system attributes the event to physical combustion rather than sensor instrumentation drift.
+          <span style={{ fontSize: 16, color: "var(--state-advisory)" }}>ℹ</span>
+          <p style={{ margin: 0, fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.4 }}>
+            <strong style={{ color: "var(--state-advisory)" }}>Digital Twin Hardware-in-the-Loop:</strong> If both CHT & EGT residuals spike simultaneously with injection quantity changes, the system attributes the event to physical combustion rather than sensor instrumentation drift.
           </p>
         </div>
       </div>
 
       {/* Right: Telemetry Histogram */}
       <div className="flex flex-col gap-2" style={{ width: 230, flexShrink: 0 }}>
-        <div className="label-xs" style={{ color: "#E8EEF6", fontSize: 10 }}>
+        <div className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10 }}>
           BUS LATENCY DISTRIBUTION
         </div>
         <div className="panel p-2" style={{ height: 180 }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={LATENCY_HIST} margin={{ top: 4, right: 4, left: -20, bottom: 4 }}>
-              <CartesianGrid strokeDasharray="2 4" stroke="#243040" />
-              <XAxis dataKey="ms" tick={{ fill: "#546678", fontSize: 8, fontFamily: "IBM Plex Mono" }} />
-              <YAxis tick={{ fill: "#546678", fontSize: 9, fontFamily: "IBM Plex Mono" }} />
-              <Tooltip contentStyle={{ background: "#18202C", border: "1px solid #243040", fontSize: 11 }} />
-              <Bar dataKey="count" fill="#3DA9FC" opacity={0.75} radius={[1, 1, 0, 0]} name="Packets" />
+              <CartesianGrid strokeDasharray="2 4" stroke="var(--stroke-hairline)" />
+              <XAxis dataKey="ms" tick={{ fill: "var(--text-muted)", fontSize: 8, fontFamily: "IBM Plex Mono" }} />
+              <YAxis tick={{ fill: "var(--text-muted)", fontSize: 9, fontFamily: "IBM Plex Mono" }} />
+              <Tooltip contentStyle={{ background: "var(--bg-raised)", border: "1px solid var(--stroke-hairline)", fontSize: 11 }} />
+              <Bar dataKey="count" fill="var(--state-advisory)" opacity={0.75} radius={[1, 1, 0, 0]} name="Packets" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         <div className="panel p-3 flex flex-col gap-1">
-          <div className="label-xs" style={{ fontSize: 10, color: "#E8EEF6" }}>
+          <div className="label-xs" style={{ fontSize: 10, color: "var(--text-primary)" }}>
             TELEMETRY LINK STATS
           </div>
           {[
@@ -237,9 +237,9 @@ export default function S9_System() {
             { label: "PACKET LOSS", val: `${busStats.pktLoss}%` },
             { label: "INGESTION", val: "20 Hz" },
           ].map((s) => (
-            <div key={s.label} className="flex justify-between py-1" style={{ borderBottom: "1px solid #1a2233" }}>
+            <div key={s.label} className="flex justify-between py-1" style={{ borderBottom: "1px solid var(--table-border)" }}>
               <span className="label-xs" style={{ fontSize: 9 }}>{s.label}</span>
-              <span className="font-mono font-medium" style={{ fontSize: 11, color: "#E8EEF6" }}>{s.val}</span>
+              <span className="font-mono font-medium" style={{ fontSize: 11, color: "var(--text-primary)" }}>{s.val}</span>
             </div>
           ))}
         </div>

@@ -80,13 +80,13 @@ export default function S5_Simulation() {
     <div className="flex gap-2 h-full overflow-hidden p-2">
       {/* Left: Parameter Console */}
       <div className="flex flex-col gap-2" style={{ width: 290, flexShrink: 0 }}>
-        <div className="label-xs" style={{ color: "#E8EEF6", fontSize: 10 }}>
+        <div className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10 }}>
           WHAT-IF SIMULATION CONSOLE
         </div>
 
         {/* Presets */}
         <div className="flex flex-col gap-1">
-          <div className="label-xs" style={{ fontSize: 9, color: "#8CA0B8" }}>
+          <div className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
             MISSION PROFILE PRESETS
           </div>
           <div className="grid grid-cols-2 gap-1">
@@ -94,12 +94,12 @@ export default function S5_Simulation() {
               <button
                 key={p.label}
                 onClick={() => setParams(p.params)}
-                className="font-display font-semibold px-2 py-1.5 rounded text-left hover:border-[#3DA9FC] transition-colors"
+                className="font-display font-semibold px-2 py-1.5 rounded text-left hover:border-[var(--state-advisory)] transition-colors"
                 style={{
                   fontSize: 10,
-                  background: "#18202C",
-                  color: "#E8EEF6",
-                  border: "1px solid #243040",
+                  background: "var(--bg-raised)",
+                  color: "var(--text-primary)",
+                  border: "1px solid var(--stroke-hairline)",
                   cursor: "pointer",
                   letterSpacing: "0.03em",
                 }}
@@ -115,11 +115,11 @@ export default function S5_Simulation() {
           {sliders.map((s) => (
             <div key={s.key}>
               <div className="flex items-center justify-between mb-1">
-                <span className="label-xs" style={{ fontSize: 10, color: "#8CA0B8" }}>
+                <span className="label-xs" style={{ fontSize: 10, color: "var(--text-secondary)" }}>
                   {s.label}
                 </span>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-mono font-bold" style={{ fontSize: 14, color: "#3DA9FC" }}>
+                  <span className="font-mono font-bold" style={{ fontSize: 14, color: "var(--state-advisory)" }}>
                     {params[s.key]}
                   </span>
                   <span className="label-xs" style={{ fontSize: 10 }}>{s.unit}</span>
@@ -133,15 +133,15 @@ export default function S5_Simulation() {
                 onChange={(e) => setParams((prev) => ({ ...prev, [s.key]: parseFloat(e.target.value) }))}
                 style={{
                   width: "100%",
-                  accentColor: "#3DA9FC",
+                  accentColor: "var(--state-advisory)",
                   height: 4,
-                  background: "#18202C",
+                  background: "var(--bg-raised)",
                   cursor: "pointer",
                 }}
               />
               <div className="flex justify-between">
-                <span className="label-xs" style={{ fontSize: 8, color: "#546678" }}>{s.min} {s.unit}</span>
-                <span className="label-xs" style={{ fontSize: 8, color: "#546678" }}>{s.max} {s.unit}</span>
+                <span className="label-xs" style={{ fontSize: 8, color: "var(--text-muted)" }}>{s.min} {s.unit}</span>
+                <span className="label-xs" style={{ fontSize: 8, color: "var(--text-muted)" }}>{s.max} {s.unit}</span>
               </div>
             </div>
           ))}
@@ -151,7 +151,7 @@ export default function S5_Simulation() {
         <button
           onClick={applySimulationToLive}
           className="font-display font-bold py-2 rounded text-xs cursor-pointer"
-          style={{ background: "#3DA9FC", color: "#080B10", letterSpacing: "0.05em" }}
+          style={{ background: "var(--state-advisory)", color: "var(--bg-base)", letterSpacing: "0.05em" }}
         >
           APPLY PROFILE TO MISSION ENGINE →
         </button>
@@ -168,41 +168,41 @@ export default function S5_Simulation() {
           }}
         >
           <div className="flex items-center gap-3">
-            <span style={{ fontSize: 22, color: sim.feasible ? "#00C08B" : "#FF3B4E" }}>
+            <span style={{ fontSize: 22, color: sim.feasible ? "var(--state-nominal)" : "var(--state-critical)" }}>
               {sim.feasible ? "✓" : "⬟"}
             </span>
             <div>
-              <div className="font-display font-bold" style={{ fontSize: 16, color: sim.feasible ? "#00C08B" : "#FF3B4E", letterSpacing: "0.05em" }}>
+              <div className="font-display font-bold" style={{ fontSize: 16, color: sim.feasible ? "var(--state-nominal)" : "var(--state-critical)", letterSpacing: "0.05em" }}>
                 {sim.feasible ? "MISSION FEASIBLE · ALL OPERATIONAL ENVELOPES RESPECTED" : "MISSION HIGH RISK · THERMAL LIMIT BREACH PREDICTED"}
               </div>
-              <div className="font-mono" style={{ fontSize: 11, color: sim.feasible ? "#8CA0B8" : "#FF7A2F" }}>
+              <div className="font-mono" style={{ fontSize: 11, color: sim.feasible ? "var(--text-secondary)" : "var(--state-warning)" }}>
                 Predicted Peak CHT: {Math.round(sim.baseCHT)}°C (Limit: 225°C) · End EHI: {sim.ehiEnd.toFixed(1)}
               </div>
             </div>
           </div>
           <div className="text-right">
             <div className="label-xs" style={{ fontSize: 9 }}>DIGITAL TWIN CONFIDENCE</div>
-            <div className="font-mono font-bold" style={{ fontSize: 15, color: "#7B61FF" }}>94.2%</div>
+            <div className="font-mono font-bold" style={{ fontSize: 15, color: "var(--twin-predicted)" }}>94.2%</div>
           </div>
         </div>
 
         {/* Predicted curves */}
         <div className="panel p-3 flex-1 flex flex-col min-h-0">
           <div className="flex items-center justify-between mb-2">
-            <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 11 }}>
+            <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 11 }}>
               PREDICTED CHT & EGT PROFILE OVER {params.duration} HOURS
             </span>
             <div className="flex gap-3">
               <div className="flex items-center gap-1">
-                <div style={{ width: 12, height: 2, background: "#FF7A2F" }} />
+                <div style={{ width: 12, height: 2, background: "var(--state-warning)" }} />
                 <span className="label-xs" style={{ fontSize: 9 }}>SIMULATED CHT</span>
               </div>
               <div className="flex items-center gap-1">
-                <div style={{ width: 12, height: 1, background: "#FF7A2F", borderTop: "1px dashed #FF7A2F" }} />
+                <div style={{ width: 12, height: 1, background: "var(--state-warning)", borderTop: "1px dashed var(--state-warning)" }} />
                 <span className="label-xs" style={{ fontSize: 9 }}>BASELINE CHT</span>
               </div>
               <div className="flex items-center gap-1">
-                <div style={{ width: 12, height: 2, background: "#3DA9FC" }} />
+                <div style={{ width: 12, height: 2, background: "var(--state-advisory)" }} />
                 <span className="label-xs" style={{ fontSize: 9 }}>SIMULATED EGT</span>
               </div>
             </div>
@@ -211,16 +211,16 @@ export default function S5_Simulation() {
           <div style={{ flex: 1, minHeight: 180 }}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={sim.curve} margin={{ top: 8, right: 20, left: -10, bottom: 4 }}>
-                <CartesianGrid strokeDasharray="2 4" stroke="#243040" />
-                <XAxis dataKey="t" tick={{ fill: "#546678", fontSize: 10, fontFamily: "IBM Plex Mono" }}
-                  label={{ value: "Mission Hours (h)", position: "insideBottom", offset: -2, fill: "#546678", fontSize: 10 }} />
-                <YAxis tick={{ fill: "#546678", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
-                <Tooltip contentStyle={{ background: "#18202C", border: "1px solid #243040", fontSize: 11, fontFamily: "IBM Plex Mono" }} />
-                <ReferenceLine y={225} stroke="#FF3B4E" strokeDasharray="4 2" label={{ value: "CHT CEILING", fill: "#FF3B4E", fontSize: 9 }} />
-                <ReferenceLine y={690} stroke="#FF3B4E" strokeDasharray="4 2" label={{ value: "EGT CEILING", fill: "#FF3B4E", fontSize: 9 }} />
-                <Line type="monotone" dataKey="chtBaseline" stroke="#FF7A2F" strokeWidth={1} strokeDasharray="4 2" dot={false} name="CHT Baseline" />
-                <Line type="monotone" dataKey="cht" stroke="#FF7A2F" strokeWidth={2} dot={false} name="CHT Simulated" />
-                <Line type="monotone" dataKey="egt" stroke="#3DA9FC" strokeWidth={2} dot={false} name="EGT Simulated" />
+                <CartesianGrid strokeDasharray="2 4" stroke="var(--stroke-hairline)" />
+                <XAxis dataKey="t" tick={{ fill: "var(--text-muted)", fontSize: 10, fontFamily: "IBM Plex Mono" }}
+                  label={{ value: "Mission Hours (h)", position: "insideBottom", offset: -2, fill: "var(--text-muted)", fontSize: 10 }} />
+                <YAxis tick={{ fill: "var(--text-muted)", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
+                <Tooltip contentStyle={{ background: "var(--bg-raised)", border: "1px solid var(--stroke-hairline)", fontSize: 11, fontFamily: "IBM Plex Mono" }} />
+                <ReferenceLine y={225} stroke="var(--state-critical)" strokeDasharray="4 2" label={{ value: "CHT CEILING", fill: "var(--state-critical)", fontSize: 9 }} />
+                <ReferenceLine y={690} stroke="var(--state-critical)" strokeDasharray="4 2" label={{ value: "EGT CEILING", fill: "var(--state-critical)", fontSize: 9 }} />
+                <Line type="monotone" dataKey="chtBaseline" stroke="var(--state-warning)" strokeWidth={1} strokeDasharray="4 2" dot={false} name="CHT Baseline" />
+                <Line type="monotone" dataKey="cht" stroke="var(--state-warning)" strokeWidth={2} dot={false} name="CHT Simulated" />
+                <Line type="monotone" dataKey="egt" stroke="var(--state-advisory)" strokeWidth={2} dot={false} name="EGT Simulated" />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -229,15 +229,15 @@ export default function S5_Simulation() {
         {/* Summary metrics */}
         <div className="flex gap-2">
           {[
-            { label: "TOTAL FUEL BURN", val: `${(sim.fuelFlow * params.duration).toFixed(0)} L`, sub: `${sim.fuelFlow.toFixed(1)} L/h avg`, color: "#8CA0B8" },
-            { label: "PEAK CHT", val: `${Math.round(sim.baseCHT)}°C`, sub: sim.chtExceed ? "EXCEEDS ENVELOPE" : "Within limits", color: sim.chtExceed ? "#FF3B4E" : "#00C08B" },
-            { label: "END SORTIE EHI", val: sim.ehiEnd.toFixed(1), sub: `Delta: −${(87.4 - sim.ehiEnd).toFixed(1)} pts`, color: sim.ehiEnd > 75 ? "#F5B335" : "#FF7A2F" },
-            { label: "RUL CONSUMPTION", val: `${sim.rulConsumed.toFixed(0)} h`, sub: `For ${params.duration}h sortie`, color: "#8CA0B8" },
+            { label: "TOTAL FUEL BURN", val: `${(sim.fuelFlow * params.duration).toFixed(0)} L`, sub: `${sim.fuelFlow.toFixed(1)} L/h avg`, color: "var(--text-secondary)" },
+            { label: "PEAK CHT", val: `${Math.round(sim.baseCHT)}°C`, sub: sim.chtExceed ? "EXCEEDS ENVELOPE" : "Within limits", color: sim.chtExceed ? "var(--state-critical)" : "var(--state-nominal)" },
+            { label: "END SORTIE EHI", val: sim.ehiEnd.toFixed(1), sub: `Delta: −${(87.4 - sim.ehiEnd).toFixed(1)} pts`, color: sim.ehiEnd > 75 ? "var(--state-caution)" : "var(--state-warning)" },
+            { label: "RUL CONSUMPTION", val: `${sim.rulConsumed.toFixed(0)} h`, sub: `For ${params.duration}h sortie`, color: "var(--text-secondary)" },
           ].map((m) => (
             <div key={m.label} className="panel p-2.5 flex-1">
               <div className="label-xs" style={{ fontSize: 9 }}>{m.label}</div>
               <div className="font-mono font-bold" style={{ fontSize: 16, color: m.color }}>{m.val}</div>
-              <div style={{ fontSize: 10, color: "#546678" }}>{m.sub}</div>
+              <div style={{ fontSize: 10, color: "var(--text-muted)" }}>{m.sub}</div>
             </div>
           ))}
         </div>

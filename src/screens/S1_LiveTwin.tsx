@@ -19,19 +19,19 @@ function EngineSchematic({
 }) {
   const cylState = cht.map((c, i) => {
     const deviation = c - 197;
-    if (deviation > 20 || egt[i] - 648 > 30) return "#FF7A2F";
-    if (deviation > 10) return "#F5B335";
+    if (deviation > 20 || egt[i] - 648 > 30) return "var(--state-warning)";
+    if (deviation > 10) return "var(--state-caution)";
     return "rgba(0,192,139,0.35)";
   });
 
   return (
     <svg viewBox="0 0 320 220" style={{ width: "100%", maxHeight: 220, display: "block" }}>
       {/* Background */}
-      <rect width="320" height="220" fill="#101620" rx="4" />
+      <rect width="320" height="220" fill="var(--bg-panel)" rx="4" />
 
       {/* Crankshaft */}
-      <rect x="10" y="170" width="300" height="8" fill="#18202C" rx="2" stroke="#243040" strokeWidth="1" />
-      <text x="160" y="178" textAnchor="middle" fill="#546678" fontSize="8" fontFamily="Inter">
+      <rect x="10" y="170" width="300" height="8" fill="var(--bg-raised)" rx="2" stroke="var(--stroke-hairline)" strokeWidth="1" />
+      <text x="160" y="178" textAnchor="middle" fill="var(--text-muted)" fontSize="8" fontFamily="Inter">
         CRANKSHAFT
       </text>
 
@@ -40,8 +40,8 @@ function EngineSchematic({
         const cx = 46 + i * 58;
         return (
           <g key={i}>
-            <line x1={cx + 4} y1="150" x2={cx + 4} y2="170" stroke="#243040" strokeWidth="4" strokeLinecap="round" />
-            <circle cx={cx + 4} cy="170" r="4" fill="#18202C" stroke="#243040" strokeWidth="1" />
+            <line x1={cx + 4} y1="150" x2={cx + 4} y2="170" stroke="var(--stroke-hairline)" strokeWidth="4" strokeLinecap="round" />
+            <circle cx={cx + 4} cy="170" r="4" fill="var(--bg-raised)" stroke="var(--stroke-hairline)" strokeWidth="1" />
           </g>
         );
       })}
@@ -67,7 +67,7 @@ function EngineSchematic({
                 width="44"
                 height="80"
                 fill="none"
-                stroke="#3DA9FC"
+                stroke="var(--state-advisory)"
                 strokeWidth="1.5"
                 strokeDasharray="3 3"
                 rx="4"
@@ -81,14 +81,14 @@ function EngineSchematic({
               width="36"
               height="60"
               fill={cylState[i]}
-              stroke={isSelected ? "#3DA9FC" : "#243040"}
+              stroke={isSelected ? "var(--state-advisory)" : "var(--stroke-hairline)"}
               strokeWidth="1"
               rx="2"
             />
             {/* Piston */}
-            <rect x={cx + 5} y="120" width="26" height="18" fill="#18202C" stroke="#243040" strokeWidth="1" rx="1" />
+            <rect x={cx + 5} y="120" width="26" height="18" fill="var(--bg-raised)" stroke="var(--stroke-hairline)" strokeWidth="1" rx="1" />
             {/* Cylinder head */}
-            <rect x={cx - 2} y="78" width="40" height="14" fill="#18202C" stroke="#243040" strokeWidth="1" rx="2" />
+            <rect x={cx - 2} y="78" width="40" height="14" fill="var(--bg-raised)" stroke="var(--stroke-hairline)" strokeWidth="1" rx="2" />
             {/* Combustion chamber */}
             <rect
               x={cx + 5}
@@ -98,15 +98,15 @@ function EngineSchematic({
               fill={isHot ? "rgba(255,122,47,0.4)" : "rgba(0,192,139,0.15)"}
             />
             {/* Valves */}
-            <line x1={cx + 12} y1="78" x2={cx + 12} y2="92" stroke="#3DA9FC" strokeWidth="2" />
-            <line x1={cx + 24} y1="78" x2={cx + 24} y2="92" stroke={isHot ? "#FF7A2F" : "#F5B335"} strokeWidth="2" />
+            <line x1={cx + 12} y1="78" x2={cx + 12} y2="92" stroke="var(--state-advisory)" strokeWidth="2" />
+            <line x1={cx + 24} y1="78" x2={cx + 24} y2="92" stroke={isHot ? "var(--state-warning)" : "var(--state-caution)"} strokeWidth="2" />
 
             {/* CHT readout */}
             <text
               x={cx + 18}
               y="68"
               textAnchor="middle"
-              fill={isHot ? "#FF7A2F" : isSelected ? "#3DA9FC" : "#E8EEF6"}
+              fill={isHot ? "var(--state-warning)" : isSelected ? "var(--state-advisory)" : "var(--text-primary)"}
               fontSize="9"
               fontFamily="IBM Plex Mono"
               fontWeight="600"
@@ -119,7 +119,7 @@ function EngineSchematic({
               x={cx + 18}
               y="115"
               textAnchor="middle"
-              fill={isSelected ? "#3DA9FC" : "#8CA0B8"}
+              fill={isSelected ? "var(--state-advisory)" : "var(--text-secondary)"}
               fontSize="8"
               fontFamily="Inter"
               fontWeight="600"
@@ -129,7 +129,7 @@ function EngineSchematic({
 
             {/* Alert indicator */}
             {isHot && (
-              <circle cx={cx + 36} cy="80" r="4" fill="#FF7A2F">
+              <circle cx={cx + 36} cy="80" r="4" fill="var(--state-warning)">
                 <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite" />
               </circle>
             )}
@@ -138,27 +138,27 @@ function EngineSchematic({
       })}
 
       {/* Intake manifold */}
-      <path d="M22,78 Q160,50 298,78" fill="none" stroke="#3DA9FC" strokeWidth="2" opacity="0.5" />
-      <text x="160" y="46" textAnchor="middle" fill="#3DA9FC" fontSize="8" fontFamily="Inter" opacity="0.8">
+      <path d="M22,78 Q160,50 298,78" fill="none" stroke="var(--state-advisory)" strokeWidth="2" opacity="0.5" />
+      <text x="160" y="46" textAnchor="middle" fill="var(--state-advisory)" fontSize="8" fontFamily="Inter" opacity="0.8">
         COMMON RAIL INJECTION SYSTEM (CLICK CYLINDER TO ISOLATE)
       </text>
 
       {/* Fluid system readouts */}
-      <rect x="10" y="188" width="80" height="14" fill="#18202C" stroke="#243040" strokeWidth="1" rx="2" />
-      <text x="50" y="198" textAnchor="middle" fill="#8CA0B8" fontSize="8" fontFamily="Inter">
+      <rect x="10" y="188" width="80" height="14" fill="var(--bg-raised)" stroke="var(--stroke-hairline)" strokeWidth="1" rx="2" />
+      <text x="50" y="198" textAnchor="middle" fill="var(--text-secondary)" fontSize="8" fontFamily="Inter">
         OIL 4.8 bar
       </text>
 
-      <rect x="230" y="188" width="80" height="14" fill="#18202C" stroke="#243040" strokeWidth="1" rx="2" />
-      <text x="270" y="198" textAnchor="middle" fill="#8CA0B8" fontSize="8" fontFamily="Inter">
+      <rect x="230" y="188" width="80" height="14" fill="var(--bg-raised)" stroke="var(--stroke-hairline)" strokeWidth="1" rx="2" />
+      <text x="270" y="198" textAnchor="middle" fill="var(--text-secondary)" fontSize="8" fontFamily="Inter">
         FUEL 4.2 bar
       </text>
 
       {/* Header labels */}
-      <text x="10" y="14" fill="#8CA0B8" fontSize="9" fontFamily="Barlow Semi Condensed" fontWeight="600">
+      <text x="10" y="14" fill="var(--text-secondary)" fontSize="9" fontFamily="Barlow Semi Condensed" fontWeight="600">
         DRDO-AD180 · 4-CYLINDER AERO-DIESEL
       </text>
-      <text x="310" y="14" textAnchor="end" fill="#546678" fontSize="8" fontFamily="IBM Plex Mono">
+      <text x="310" y="14" textAnchor="end" fill="var(--text-muted)" fontSize="8" fontFamily="IBM Plex Mono">
         ISOLATION: CYL {selectedCyl}
       </text>
     </svg>
@@ -169,28 +169,28 @@ function TwinSyncBar({ ehi }: { ehi: number }) {
   return (
     <div className="panel p-2 flex items-center gap-4">
       <div className="flex items-center gap-2">
-        <div className="twin-pulse" style={{ width: 8, height: 8, borderRadius: "50%", background: "#7B61FF" }} />
+        <div className="twin-pulse" style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--twin-predicted)" }} />
         <span className="label-xs">TWIN SYNC</span>
       </div>
       <div className="flex gap-3 flex-wrap">
         <div className="flex flex-col">
           <span className="label-xs" style={{ fontSize: 9 }}>LATENCY</span>
-          <span className="font-mono" style={{ fontSize: 13, color: "#7B61FF" }}>142 ms</span>
+          <span className="font-mono" style={{ fontSize: 13, color: "var(--twin-predicted)" }}>142 ms</span>
         </div>
-        <div style={{ width: 1, background: "#243040" }} />
+        <div style={{ width: 1, background: "var(--stroke-hairline)" }} />
         <div className="flex flex-col">
           <span className="label-xs" style={{ fontSize: 9 }}>MODEL CONF</span>
-          <span className="font-mono" style={{ fontSize: 13, color: "#7B61FF" }}>91%</span>
+          <span className="font-mono" style={{ fontSize: 13, color: "var(--twin-predicted)" }}>91%</span>
         </div>
-        <div style={{ width: 1, background: "#243040" }} />
+        <div style={{ width: 1, background: "var(--stroke-hairline)" }} />
         <div className="flex flex-col">
           <span className="label-xs" style={{ fontSize: 9 }}>INGEST RATE</span>
-          <span className="font-mono" style={{ fontSize: 13, color: "#8CA0B8" }}>20 Hz</span>
+          <span className="font-mono" style={{ fontSize: 13, color: "var(--text-secondary)" }}>20 Hz</span>
         </div>
-        <div style={{ width: 1, background: "#243040" }} />
+        <div style={{ width: 1, background: "var(--stroke-hairline)" }} />
         <div className="flex flex-col">
           <span className="label-xs" style={{ fontSize: 9 }}>HEALTH</span>
-          <span className="font-mono" style={{ fontSize: 13, color: ehi > 80 ? "#00C08B" : "#F5B335" }}>
+          <span className="font-mono" style={{ fontSize: 13, color: ehi > 80 ? "var(--state-nominal)" : "var(--state-caution)" }}>
             EHI {ehi}
           </span>
         </div>
@@ -218,7 +218,7 @@ export default function S1_LiveTwin() {
     <div className="flex gap-2 h-full overflow-hidden p-2">
       {/* LEFT — Physical Telemetry Column */}
       <div className="flex flex-col gap-1.5 overflow-y-auto scrollable" style={{ width: 220, flexShrink: 0 }}>
-        <div className="label-xs px-1" style={{ color: "#E8EEF6", fontSize: 10, letterSpacing: "0.1em" }}>
+        <div className="label-xs px-1" style={{ color: "var(--text-primary)", fontSize: 10, letterSpacing: "0.1em" }}>
           PHYSICAL TELEMETRY · 20 HZ
         </div>
 
@@ -270,7 +270,7 @@ export default function S1_LiveTwin() {
       {/* CENTER — The Digital Twin & Interactive SVG */}
       <div className="flex flex-col gap-2 flex-1 min-w-0">
         <div className="flex items-center justify-between">
-          <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 10, letterSpacing: "0.1em" }}>
+          <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10, letterSpacing: "0.1em" }}>
             DIGITAL TWIN RESIDUAL MODEL · AIRFRAME {activeAirframe.tail}
           </span>
           <div className="flex gap-2">
@@ -280,9 +280,9 @@ export default function S1_LiveTwin() {
                 onClick={() => setSelectedCyl(c)}
                 className="font-mono text-xs px-2 py-0.5 rounded cursor-pointer transition-colors"
                 style={{
-                  background: selectedCyl === c ? "rgba(61,169,252,0.2)" : "#18202C",
-                  color: selectedCyl === c ? "#3DA9FC" : "#8CA0B8",
-                  border: `1px solid ${selectedCyl === c ? "#3DA9FC" : "#243040"}`,
+                  background: selectedCyl === c ? "var(--table-selected)" : "var(--bg-raised)",
+                  color: selectedCyl === c ? "var(--state-advisory)" : "var(--text-secondary)",
+                  border: `1px solid ${selectedCyl === c ? "var(--state-advisory)" : "var(--stroke-hairline)"}`,
                 }}
               >
                 CYL {c}
@@ -305,16 +305,16 @@ export default function S1_LiveTwin() {
         <div className="panel p-3 flex-1 flex flex-col min-h-0">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-3">
-              <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 11 }}>
+              <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 11 }}>
                 MEASURED vs TWIN-PREDICTED · CYL {selectedCyl}
               </span>
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
-                  <div style={{ width: 14, height: 2, background: "#FF7A2F" }} />
+                  <div style={{ width: 14, height: 2, background: "var(--state-warning)" }} />
                   <span className="label-xs" style={{ fontSize: 9 }}>MEASURED</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div style={{ width: 14, height: 1, background: "#7B61FF", borderTop: "1px dashed #7B61FF" }} />
+                  <div style={{ width: 14, height: 1, background: "var(--twin-predicted)", borderTop: "1px dashed var(--twin-predicted)" }} />
                   <span className="label-xs" style={{ fontSize: 9 }}>TWIN PREDICTED</span>
                 </div>
               </div>
@@ -325,7 +325,7 @@ export default function S1_LiveTwin() {
                 className="font-mono"
                 style={{
                   fontSize: 13,
-                  color: egtDelta > 30 ? "#FF7A2F" : egtDelta > 15 ? "#F5B335" : "#00C08B",
+                  color: egtDelta > 30 ? "var(--state-warning)" : egtDelta > 15 ? "var(--state-caution)" : "var(--state-nominal)",
                   fontWeight: 600,
                 }}
               >
@@ -337,18 +337,18 @@ export default function S1_LiveTwin() {
           <div style={{ flex: 1, minHeight: 120 }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartHistory} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="2 4" stroke="#243040" />
+                <CartesianGrid strokeDasharray="2 4" stroke="var(--stroke-hairline)" />
                 <XAxis dataKey="t" hide />
-                <YAxis domain={[620, 720]} tick={{ fill: "#546678", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
+                <YAxis domain={[620, 720]} tick={{ fill: "var(--text-muted)", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
                 <Tooltip
-                  contentStyle={{ background: "#18202C", border: "1px solid #243040", fontSize: 11, fontFamily: "IBM Plex Mono" }}
-                  labelStyle={{ color: "#546678" }}
-                  itemStyle={{ color: "#E8EEF6" }}
+                  contentStyle={{ background: "var(--bg-raised)", border: "1px solid var(--stroke-hairline)", fontSize: 11, fontFamily: "IBM Plex Mono" }}
+                  labelStyle={{ color: "var(--text-muted)" }}
+                  itemStyle={{ color: "var(--text-primary)" }}
                 />
                 <Area
                   type="monotone"
                   dataKey="egt3Pred"
-                  stroke="#7B61FF"
+                  stroke="var(--twin-predicted)"
                   strokeWidth={1.5}
                   strokeDasharray="4 2"
                   fill="rgba(123,97,255,0.12)"
@@ -358,7 +358,7 @@ export default function S1_LiveTwin() {
                 <Line
                   type="monotone"
                   dataKey="egt3"
-                  stroke="#FF7A2F"
+                  stroke="var(--state-warning)"
                   strokeWidth={2}
                   dot={false}
                   name={`Measured CYL ${selectedCyl}`}
@@ -374,15 +374,15 @@ export default function S1_LiveTwin() {
 
       {/* RIGHT — Intelligence & Diagnostic Panel */}
       <div className="flex flex-col gap-2 overflow-y-auto scrollable" style={{ width: 230, flexShrink: 0 }}>
-        <div className="label-xs" style={{ color: "#7B61FF", fontSize: 10, letterSpacing: "0.1em" }}>
+        <div className="label-xs" style={{ color: "var(--twin-predicted)", fontSize: 10, letterSpacing: "0.1em" }}>
           INFERRED AI INTELLIGENCE
         </div>
 
         {/* ENGINE HEALTH INDEX */}
         <div className="inferred-card">
           <div className="flex items-center justify-between mb-2">
-            <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 11 }}>ENGINE HEALTH INDEX</span>
-            <span className="label-xs" style={{ fontSize: 9, background: "rgba(123,97,255,0.15)", color: "#7B61FF", padding: "1px 4px", borderRadius: 3 }}>
+            <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 11 }}>ENGINE HEALTH INDEX</span>
+            <span className="label-xs" style={{ fontSize: 9, background: "rgba(123,97,255,0.15)", color: "var(--twin-predicted)", padding: "1px 4px", borderRadius: 3 }}>
               LIVE EHI
             </span>
           </div>
@@ -395,7 +395,7 @@ export default function S1_LiveTwin() {
                   className="font-mono font-bold"
                   style={{
                     fontSize: 13,
-                    color: activeAirframe.ehi > 80 ? "#00C08B" : activeAirframe.ehi > 65 ? "#F5B335" : "#FF3B4E",
+                    color: activeAirframe.ehi > 80 ? "var(--state-nominal)" : activeAirframe.ehi > 65 ? "var(--state-caution)" : "var(--state-critical)",
                   }}
                 >
                   {activeAirframe.ehi > 80 ? "NOMINAL" : activeAirframe.ehi > 65 ? "DEGRADED" : "CRITICAL"}
@@ -412,28 +412,28 @@ export default function S1_LiveTwin() {
         {/* ANOMALY SCORE */}
         <div className="inferred-card">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 11 }}>ANOMALY DETECTOR</span>
-            <span className="label-xs" style={{ fontSize: 9, background: "rgba(123,97,255,0.15)", color: "#7B61FF", padding: "1px 4px", borderRadius: 3 }}>
+            <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 11 }}>ANOMALY DETECTOR</span>
+            <span className="label-xs" style={{ fontSize: 9, background: "rgba(123,97,255,0.15)", color: "var(--twin-predicted)", padding: "1px 4px", borderRadius: 3 }}>
               LSTM
             </span>
           </div>
           <div className="flex items-baseline gap-2 mb-2">
-            <span className="font-mono" style={{ fontSize: 24, color: "#F5B335", fontWeight: 600 }}>
+            <span className="font-mono" style={{ fontSize: 24, color: "var(--state-caution)", fontWeight: 600 }}>
               0.34
             </span>
             <span className="label-xs">/ 1.00 THRESH: 0.45</span>
           </div>
           <div className="relative">
-            <div style={{ height: 6, background: "#18202C", borderRadius: 3, overflow: "hidden" }}>
-              <div style={{ width: "34%", height: "100%", background: "linear-gradient(90deg,#00C08B,#F5B335)", borderRadius: 3 }} />
+            <div style={{ height: 6, background: "var(--bg-raised)", borderRadius: 3, overflow: "hidden" }}>
+              <div style={{ width: "34%", height: "100%", background: "linear-gradient(90deg,var(--state-nominal),var(--state-caution))", borderRadius: 3 }} />
             </div>
-            <div style={{ position: "absolute", left: "45%", top: -2, width: 2, height: 10, background: "#FF7A2F" }} />
+            <div style={{ position: "absolute", left: "45%", top: -2, width: 2, height: 10, background: "var(--state-warning)" }} />
           </div>
           <div className="mt-2">
             <button
               onClick={() => navigateToScreen("faults")}
               className="w-full font-mono text-xs py-1 rounded cursor-pointer hover:bg-white/10"
-              style={{ background: "#18202C", border: "1px solid #3DA9FC40", color: "#3DA9FC" }}
+              style={{ background: "var(--bg-raised)", border: "1px solid var(--state-advisory)40", color: "var(--state-advisory)" }}
             >
               OPEN FAULT CENTRE →
             </button>
@@ -443,14 +443,14 @@ export default function S1_LiveTwin() {
         {/* RUL Card */}
         <div className="inferred-card">
           <div className="flex items-center justify-between mb-2">
-            <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 11 }}>REMAINING USEFUL LIFE</span>
-            <span className="label-xs" style={{ fontSize: 9, color: "#7B61FF" }}>PROGNOSTICS</span>
+            <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 11 }}>REMAINING USEFUL LIFE</span>
+            <span className="label-xs" style={{ fontSize: 9, color: "var(--twin-predicted)" }}>PROGNOSTICS</span>
           </div>
           <div className="flex gap-4 mb-2">
             <div>
               <div className="label-xs" style={{ fontSize: 9 }}>HOURS</div>
               <div className="flex items-baseline gap-1">
-                <span className="font-mono" style={{ fontSize: 22, color: "#E8EEF6", fontWeight: 600 }}>
+                <span className="font-mono" style={{ fontSize: 22, color: "var(--text-primary)", fontWeight: 600 }}>
                   {activeAirframe.rul}
                 </span>
                 <span className="label-xs">h</span>
@@ -463,7 +463,7 @@ export default function S1_LiveTwin() {
                   className="font-mono"
                   style={{
                     fontSize: 22,
-                    color: activeAirframe.openFaults > 3 ? "#FF3B4E" : "#FF7A2F",
+                    color: activeAirframe.openFaults > 3 ? "var(--state-critical)" : "var(--state-warning)",
                     fontWeight: 600,
                   }}
                 >
@@ -478,8 +478,8 @@ export default function S1_LiveTwin() {
             style={{ background: "rgba(0,192,139,0.1)", border: "1px solid rgba(0,192,139,0.3)" }}
             onClick={() => navigateToScreen("prognostics")}
           >
-            <span style={{ color: "#00C08B", fontSize: 12 }}>✓</span>
-            <span className="font-display font-semibold" style={{ fontSize: 11, color: "#00C08B" }}>
+            <span style={{ color: "var(--state-nominal)", fontSize: 12 }}>✓</span>
+            <span className="font-display font-semibold" style={{ fontSize: 11, color: "var(--state-nominal)" }}>
               RUL SUFFICIENT FOR MISSION
             </span>
           </div>
@@ -500,7 +500,7 @@ export default function S1_LiveTwin() {
             ].map((e) => (
               <div key={e.l} className="flex flex-col">
                 <span className="label-xs" style={{ fontSize: 8 }}>{e.l}</span>
-                <span className="font-mono" style={{ fontSize: 10, color: "#8CA0B8" }}>{e.v}</span>
+                <span className="font-mono" style={{ fontSize: 10, color: "var(--text-secondary)" }}>{e.v}</span>
               </div>
             ))}
           </div>

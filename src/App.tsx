@@ -114,8 +114,8 @@ function MainApp() {
       style={{
         width: "100vw",
         height: "100vh",
-        background: "#080B10",
-        color: "#E8EEF6",
+        background: "var(--bg-base)",
+        color: "var(--text-primary)",
         overflow: "hidden",
         fontFamily: "'Inter', sans-serif",
       }}
@@ -134,22 +134,22 @@ function MainApp() {
         className="flex items-center px-4 gap-2.5"
         style={{
           height: 32,
-          background: "#080B10",
-          borderBottom: "1px solid #243040",
+          background: "var(--bg-base)",
+          borderBottom: "1px solid var(--stroke-hairline)",
           flexShrink: 0,
         }}
       >
-        <div className="twin-pulse" style={{ width: 6, height: 6, borderRadius: "50%", background: "#3DA9FC" }} />
-        <span className="font-display font-semibold text-xs tracking-wider text-[#E8EEF6]">
+        <div className="twin-pulse" style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--state-advisory)" }} />
+        <span className="font-display font-semibold text-xs tracking-wider text-text-primary">
           {SCREEN_TITLES[activeScreen]}
         </span>
         <div style={{ flex: 1 }} />
         <div className="flex items-center gap-3">
-          <span className="font-mono text-[10px] text-[#8CA0B8]">
-            AIRFRAME: <strong className="text-[#3DA9FC]">{activeAirframe.tail}</strong> · {activeAirframe.platform}
+          <span className="font-mono text-[10px] text-text-secondary">
+            AIRFRAME: <strong className="text-state-advisory">{activeAirframe.tail}</strong> · {activeAirframe.platform}
           </span>
           <span
-            className="font-mono text-[9px] px-1.5 py-0.5 rounded border border-[#243040] text-[#546678]"
+            className="font-mono text-[9px] px-1.5 py-0.5 rounded border border-stroke-hairline text-text-muted"
           >
             CLEARANCE: L-{user.clearanceLevel} · {user.rank}
           </span>
@@ -164,7 +164,7 @@ function MainApp() {
           expanded={navExpanded}
           onToggle={() => setNavExpanded((p) => !p)}
         />
-        <div className="flex-1 min-w-0 overflow-hidden bg-[#080B10]">
+        <div className="flex-1 min-w-0 overflow-hidden bg-bg-base">
           <ScreenComponent />
         </div>
       </div>
@@ -178,7 +178,7 @@ function MainApp() {
       {/* Global Toast Notification */}
       {toastMessage && (
         <div
-          className="fixed top-16 right-6 z-50 px-4 py-2.5 rounded shadow-2xl font-mono text-xs font-semibold flex items-center gap-2 animate-bounce bg-[#18202C] border border-[#3DA9FC] text-[#E8EEF6]"
+          className="fixed top-16 right-6 z-50 px-4 py-2.5 rounded shadow-2xl font-mono text-xs font-semibold flex items-center gap-2 animate-bounce bg-bg-raised border border-state-advisory text-text-primary"
           style={{
             boxShadow: "0 4px 24px rgba(61,169,252,0.3)",
           }}

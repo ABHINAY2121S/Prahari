@@ -53,7 +53,7 @@ export default function S4_Prognostics() {
     <div className="flex gap-2 h-full overflow-hidden p-2">
       {/* Left: Component RUL Table */}
       <div className="flex flex-col gap-2" style={{ width: 320, flexShrink: 0 }}>
-        <div className="label-xs" style={{ color: "#E8EEF6", fontSize: 10 }}>
+        <div className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10 }}>
           COMPONENT RUL TABLE · {activeAirframe.tail}
         </div>
 
@@ -77,10 +77,10 @@ export default function S4_Prognostics() {
                     onClick={() => setSelectedComponent(c.name)}
                     style={{
                       cursor: "pointer",
-                      background: isSelected ? "rgba(61,169,252,0.12)" : "transparent",
+                      background: isSelected ? "var(--table-selected" : "transparent",
                     }}
                   >
-                    <td style={{ fontSize: 11, color: isSelected ? "#E8EEF6" : "#8CA0B8", padding: "5px 6px", fontFamily: "Inter" }}>
+                    <td style={{ fontSize: 11, color: isSelected ? "var(--text-primary)" : "var(--text-secondary)", padding: "5px 6px", fontFamily: "Inter" }}>
                       {c.name}
                     </td>
                     <td>
@@ -88,16 +88,16 @@ export default function S4_Prognostics() {
                         className="font-mono font-bold"
                         style={{
                           fontSize: 13,
-                          color: c.status === "warning" ? "#FF7A2F" : c.status === "caution" ? "#F5B335" : "#00C08B",
+                          color: c.status === "warning" ? "var(--state-warning)" : c.status === "caution" ? "var(--state-caution)" : "var(--state-nominal)",
                         }}
                       >
                         {c.hoursRemaining}
                       </span>
                     </td>
-                    <td className="font-mono" style={{ fontSize: 11, color: "#8CA0B8" }}>
+                    <td className="font-mono" style={{ fontSize: 11, color: "var(--text-secondary)" }}>
                       {c.cyclesRemaining}
                     </td>
-                    <td className="font-mono" style={{ fontSize: 11, color: c.degradationRate > 1.5 ? "#FF7A2F" : "#F5B335" }}>
+                    <td className="font-mono" style={{ fontSize: 11, color: c.degradationRate > 1.5 ? "var(--state-warning)" : "var(--state-caution)" }}>
                       {c.degradationRate}
                     </td>
                     <td>
@@ -112,7 +112,7 @@ export default function S4_Prognostics() {
 
         {/* Mission Reliability Card */}
         <div className="inferred-card">
-          <div className="label-xs mb-2" style={{ fontSize: 10, color: "#E8EEF6" }}>
+          <div className="label-xs mb-2" style={{ fontSize: 10, color: "var(--text-primary)" }}>
             MISSION RELIABILITY & ABORT METRIC
           </div>
           <div className="flex items-center gap-3 mb-2">
@@ -120,32 +120,32 @@ export default function S4_Prognostics() {
               <div className="label-xs" style={{ fontSize: 9 }}>ABORT PROBABILITY</div>
               <span
                 className="font-mono font-bold"
-                style={{ fontSize: 26, color: abortRisk > 20 ? "#FF7A2F" : "#00C08B" }}
+                style={{ fontSize: 26, color: abortRisk > 20 ? "var(--state-warning)" : "var(--state-nominal)" }}
               >
                 {abortRisk}%
               </span>
             </div>
-            <div className="flex flex-col items-center px-3" style={{ borderLeft: "1px solid #243040" }}>
+            <div className="flex flex-col items-center px-3" style={{ borderLeft: "1px solid var(--stroke-hairline)" }}>
               <div className="label-xs" style={{ fontSize: 9 }}>RISK LEVEL</div>
               <SeverityChip severity={abortRisk > 20 ? "caution" : "nominal"} label={abortRisk > 20 ? "ELEVATED" : "LOW"} size="md" />
             </div>
           </div>
 
-          <div className="label-xs mb-1" style={{ fontSize: 9, color: "#8CA0B8" }}>
+          <div className="label-xs mb-1" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
             DOMINANT FAILURE RISKS
           </div>
           <div className="flex flex-col gap-1">
             {[
-              { name: "Injector Clogging (Cyl 3)", prob: hasCyl3Fault ? 68 : 12, col: "#FF7A2F" },
-              { name: "Thermal Exceedance (>215°C)", prob: hasCyl3Fault ? 34 : 8, col: "#F5B335" },
-              { name: "Propeller Vibration Harmonic", prob: 9, col: "#00C08B" },
+              { name: "Injector Clogging (Cyl 3)", prob: hasCyl3Fault ? 68 : 12, col: "var(--state-warning)" },
+              { name: "Thermal Exceedance (>215°C)", prob: hasCyl3Fault ? 34 : 8, col: "var(--state-caution)" },
+              { name: "Propeller Vibration Harmonic", prob: 9, col: "var(--state-nominal)" },
             ].map((r) => (
               <div key={r.name}>
                 <div className="flex justify-between text-xs">
-                  <span style={{ color: "#8CA0B8", fontSize: 10 }}>{r.name}</span>
+                  <span style={{ color: "var(--text-secondary)", fontSize: 10 }}>{r.name}</span>
                   <span className="font-mono font-semibold" style={{ color: r.col, fontSize: 10 }}>{r.prob}%</span>
                 </div>
-                <div style={{ height: 3, background: "#18202C", borderRadius: 2, overflow: "hidden" }}>
+                <div style={{ height: 3, background: "var(--bg-raised)", borderRadius: 2, overflow: "hidden" }}>
                   <div style={{ width: `${r.prob}%`, height: "100%", background: r.col }} />
                 </div>
               </div>
@@ -158,17 +158,17 @@ export default function S4_Prognostics() {
       <div className="flex flex-col gap-2 flex-1 min-w-0">
         <div className="flex items-center justify-between">
           <div>
-            <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 10 }}>
+            <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 10 }}>
               REMAINING USEFUL LIFE TRAJECTORY · {selectedComponent}
             </span>
-            <div className="label-xs" style={{ fontSize: 9, color: "#8CA0B8" }}>
+            <div className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
               TBO LIMIT: 300 HOURS · CURRENT PREDICTED FLEET WEAR
             </div>
           </div>
 
           {/* Scenario selector tabs */}
           <div className="flex items-center gap-1.5 panel p-1">
-            <span className="label-xs mr-1" style={{ fontSize: 9, color: "#546678" }}>SCENARIO:</span>
+            <span className="label-xs mr-1" style={{ fontSize: 9, color: "var(--text-muted)" }}>SCENARIO:</span>
             {[
               { id: "eco", label: "ECO PATROL (70% PWR)" },
               { id: "nominal", label: "NOMINAL ISR (88% PWR)" },
@@ -179,8 +179,8 @@ export default function S4_Prognostics() {
                 onClick={() => setSelectedScenario(s.id as any)}
                 className="font-mono text-[10px] px-2 py-1 rounded cursor-pointer transition-all"
                 style={{
-                  background: selectedScenario === s.id ? "#3DA9FC" : "#18202C",
-                  color: selectedScenario === s.id ? "#080B10" : "#8CA0B8",
+                  background: selectedScenario === s.id ? "var(--state-advisory)" : "var(--bg-raised)",
+                  color: selectedScenario === s.id ? "var(--bg-base)" : "var(--text-secondary)",
                   fontWeight: selectedScenario === s.id ? 700 : 500,
                 }}
               >
@@ -194,16 +194,16 @@ export default function S4_Prognostics() {
         <div className="panel p-3 flex-1 flex flex-col min-h-0">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-4">
-              <span className="label-xs" style={{ color: "#E8EEF6", fontSize: 11 }}>
+              <span className="label-xs" style={{ color: "var(--text-primary)", fontSize: 11 }}>
                 HEALTH DEGRADATION & 90% CONFIDENCE BOUNDS
               </span>
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
-                  <div style={{ width: 12, height: 2, background: "#00C08B" }} />
+                  <div style={{ width: 12, height: 2, background: "var(--state-nominal)" }} />
                   <span className="label-xs" style={{ fontSize: 9 }}>HISTORICAL</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div style={{ width: 12, height: 2, background: "#3DA9FC" }} />
+                  <div style={{ width: 12, height: 2, background: "var(--state-advisory)" }} />
                   <span className="label-xs" style={{ fontSize: 9 }}>PREDICTED MEAN</span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -212,7 +212,7 @@ export default function S4_Prognostics() {
                 </div>
               </div>
             </div>
-            <div className="label-xs font-mono" style={{ color: "#7B61FF" }}>
+            <div className="label-xs font-mono" style={{ color: "var(--twin-predicted)" }}>
               MODEL CONFIDENCE: 91%
             </div>
           </div>
@@ -220,17 +220,17 @@ export default function S4_Prognostics() {
           <div style={{ flex: 1, minHeight: 180 }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={projectionData} margin={{ top: 10, right: 15, left: -15, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="2 4" stroke="#243040" />
-                <XAxis dataKey="t" tick={{ fill: "#546678", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
-                <YAxis domain={[40, 105]} tick={{ fill: "#546678", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
+                <CartesianGrid strokeDasharray="2 4" stroke="var(--stroke-hairline)" />
+                <XAxis dataKey="t" tick={{ fill: "var(--text-muted)", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
+                <YAxis domain={[40, 105]} tick={{ fill: "var(--text-muted)", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
                 <Tooltip
-                  contentStyle={{ background: "#18202C", border: "1px solid #243040", fontSize: 11, fontFamily: "IBM Plex Mono" }}
+                  contentStyle={{ background: "var(--bg-raised)", border: "1px solid var(--stroke-hairline)", fontSize: 11, fontFamily: "IBM Plex Mono" }}
                 />
-                <ReferenceLine y={65} stroke="#FF3B4E" strokeDasharray="4 2" label={{ value: "MAINTENANCE MANDATORY THRESHOLD (EHI 65)", fill: "#FF3B4E", fontSize: 9 }} />
+                <ReferenceLine y={65} stroke="var(--state-critical)" strokeDasharray="4 2" label={{ value: "MAINTENANCE MANDATORY THRESHOLD (EHI 65)", fill: "var(--state-critical)", fontSize: 9 }} />
                 <Area type="monotone" dataKey="upper" stroke="none" fill="rgba(61,169,252,0.15)" />
-                <Area type="monotone" dataKey="lower" stroke="none" fill="#101620" />
-                <Area type="monotone" dataKey="historical" stroke="#00C08B" strokeWidth={2} fill="none" dot={false} />
-                <Area type="monotone" dataKey="nominalMean" stroke="#3DA9FC" strokeWidth={2} fill="none" dot={false} />
+                <Area type="monotone" dataKey="lower" stroke="none" fill="var(--bg-panel)" />
+                <Area type="monotone" dataKey="historical" stroke="var(--state-nominal)" strokeWidth={2} fill="none" dot={false} />
+                <Area type="monotone" dataKey="nominalMean" stroke="var(--state-advisory)" strokeWidth={2} fill="none" dot={false} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -240,20 +240,20 @@ export default function S4_Prognostics() {
         <div className="flex gap-2">
           <button
             onClick={() => navigateToScreen("maintenance")}
-            className="flex-1 panel p-2.5 flex items-center justify-between cursor-pointer hover:border-[#3DA9FC] transition-colors"
+            className="flex-1 panel p-2.5 flex items-center justify-between cursor-pointer hover:border-[var(--state-advisory)] transition-colors"
           >
             <div className="flex items-center gap-2">
               <span style={{ fontSize: 16 }}>⚙️</span>
               <div className="text-left">
-                <div className="font-display font-semibold text-xs text-[#E8EEF6]">
+                <div className="font-display font-semibold text-xs text-[var(--text-primary)]">
                   VIEW PREVENTIVE MAINTENANCE SCHEDULE
                 </div>
-                <div className="label-xs" style={{ fontSize: 9, color: "#8CA0B8" }}>
+                <div className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
                   Schedule replacement of {selectedComponent} before TBO expiration
                 </div>
               </div>
             </div>
-            <span className="font-mono text-xs text-[#3DA9FC]">GOTO S7 →</span>
+            <span className="font-mono text-xs text-[var(--state-advisory)]">GOTO S7 →</span>
           </button>
         </div>
       </div>

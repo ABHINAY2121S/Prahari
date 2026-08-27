@@ -1,15 +1,15 @@
 interface Props {
   value: number;
-  size?: 64 | 120 | 200;
+  size?: number;
   label?: string;
   trend?: number;
 }
 
 function stateColor(v: number) {
-  if (v >= 90) return "#00C08B";
-  if (v >= 75) return "#F5B335";
-  if (v >= 60) return "#FF7A2F";
-  return "#FF3B4E";
+  if (v >= 90) return "var(--state-nominal)";
+  if (v >= 75) return "var(--state-caution)";
+  if (v >= 60) return "var(--state-warning)";
+  return "var(--state-critical)";
 }
 
 export default function HealthRing({ value, size = 120, label, trend }: Props) {
@@ -25,7 +25,7 @@ export default function HealthRing({ value, size = 120, label, trend }: Props) {
   return (
     <div className="flex flex-col items-center gap-1">
       <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
-        <circle cx={cx} cy={cy} r={r} fill="none" stroke="#18202C" strokeWidth={size === 64 ? 6 : 8} />
+        <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--bg-raised)" strokeWidth={size === 64 ? 6 : 8} />
         <circle
           cx={cx}
           cy={cy}
@@ -62,7 +62,7 @@ export default function HealthRing({ value, size = 120, label, trend }: Props) {
               transformOrigin: `${cx}px ${cy}px`,
               fontFamily: "'Inter', sans-serif",
               fontSize: trendFontSize,
-              fill: trend < 0 ? "#F5B335" : "#00C08B",
+              fill: trend < 0 ? "var(--state-caution)" : "var(--state-nominal)",
             }}
           >
             {trend > 0 ? "+" : ""}{trend?.toFixed(1)}/hr

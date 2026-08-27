@@ -26,7 +26,7 @@ export default function MissionPhaseStrip() {
   return (
     <div
       className="flex items-stretch overflow-hidden select-none"
-      style={{ height: 44, background: "#101620", borderBottom: "1px solid #243040" }}
+      style={{ height: 44, background: "var(--bg-panel)", borderBottom: "1px solid var(--stroke-hairline)" }}
     >
       {missionPhases.map((phase, i) => {
         const past = i < safeIdx;
@@ -41,7 +41,7 @@ export default function MissionPhaseStrip() {
             className="relative flex flex-col items-center justify-center flex-1 overflow-hidden cursor-pointer hover:bg-white/5 transition-colors"
             style={{
               background: current ? "rgba(0,192,139,0.08)" : past ? "transparent" : "transparent",
-              borderRight: "1px solid #243040",
+              borderRight: "1px solid var(--stroke-hairline)",
               minWidth: 0,
             }}
             title={`Click to set mission phase to ${phase.id}`}
@@ -57,7 +57,7 @@ export default function MissionPhaseStrip() {
               style={{
                 fontSize: 9,
                 letterSpacing: "0.05em",
-                color: current ? "#00C08B" : past ? "#546678" : "#8CA0B8",
+                color: current ? "var(--state-nominal)" : past ? "var(--text-muted)" : "var(--text-secondary)",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -68,20 +68,20 @@ export default function MissionPhaseStrip() {
               {phase.id}
             </span>
             {past && phase.elapsed && (
-              <span className="font-mono relative" style={{ fontSize: 8, color: "#546678" }}>
+              <span className="font-mono relative" style={{ fontSize: 8, color: "var(--text-muted)" }}>
                 {phase.elapsed}
               </span>
             )}
             {current && (
               <div className="flex items-center gap-1 relative">
-                <div className="twin-pulse" style={{ width: 4, height: 4, borderRadius: "50%", background: "#00C08B" }} />
-                <span className="font-mono font-bold" style={{ fontSize: 8, color: "#00C08B" }}>
+                <div className="twin-pulse" style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--state-nominal)" }} />
+                <span className="font-mono font-bold" style={{ fontSize: 8, color: "var(--state-nominal)" }}>
                   ACTIVE
                 </span>
               </div>
             )}
             {future && phase.planned && (
-              <span className="font-mono relative" style={{ fontSize: 8, color: "#3a4f6a" }}>
+              <span className="font-mono relative" style={{ fontSize: 8, color: "var(--stroke-hairline)" }}>
                 {phase.planned}
               </span>
             )}
@@ -93,7 +93,7 @@ export default function MissionPhaseStrip() {
                   height: 0,
                   borderTop: "6px solid transparent",
                   borderBottom: "6px solid transparent",
-                  borderLeft: "6px solid #00C08B",
+                  borderLeft: "6px solid var(--state-nominal)",
                 }}
               />
             )}
@@ -104,13 +104,13 @@ export default function MissionPhaseStrip() {
       {/* Phase envelope dynamic display */}
       <div
         className="flex items-center px-3 shrink-0"
-        style={{ background: "#18202C", borderLeft: "1px solid #243040", minWidth: 320 }}
+        style={{ background: "var(--bg-raised)", borderLeft: "1px solid var(--stroke-hairline)", minWidth: 320 }}
       >
         <div>
-          <span className="label-xs" style={{ fontSize: 9, color: "#546678" }}>
+          <span className="label-xs" style={{ fontSize: 9, color: "var(--text-muted)" }}>
             PHASE ENVELOPE ·{" "}
           </span>
-          <span className="font-mono" style={{ fontSize: 10, color: "#3DA9FC" }}>
+          <span className="font-mono" style={{ fontSize: 10, color: "var(--state-advisory)" }}>
             {ENVELOPES[missionPhase] || "2400±60 RPM · 88±6% LOAD · CHT 185–205°C"}
           </span>
         </div>

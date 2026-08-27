@@ -2,10 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>&#x1F1EE;&#x1F1F3;</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PRAHARI-DT · Digital Twin Telemetry & Diagnostics</title>
+    <title>PRAHARI-DT - Digital Twin Telemetry and Diagnostics</title>
     <meta name="description" content="DRDO UAV Propulsion System Digital Twin Telemetry & Diagnostics" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme') || 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -16,12 +16,12 @@ interface Props {
 }
 
 const STATE_COLORS: Record<State, string> = {
-  nominal: "#00C08B",
-  advisory: "#3DA9FC",
-  caution: "#F5B335",
-  warning: "#FF7A2F",
-  critical: "#FF3B4E",
-  stale: "#546678",
+  nominal: "var(--state-nominal)",
+  advisory: "var(--state-advisory)",
+  caution: "var(--state-caution)",
+  warning: "var(--state-warning)",
+  critical: "var(--state-critical)",
+  stale: "var(--text-muted)",
 };
 
 export default function TelemetryTile({ label, value, unit, sparkline, rangeMin, rangeMax, state = "nominal", predicted, sensorId, tier = 1 }: Props) {
@@ -58,12 +58,12 @@ export default function TelemetryTile({ label, value, unit, sparkline, rangeMin,
     <div
       className={`panel relative p-2 flex flex-col gap-1 ${state === "stale" ? "opacity-60" : ""}`}
       style={{
-        borderLeftColor: tier === 3 ? "#7B61FF" : undefined,
-        background: tier === 2 ? "#18202C" : "#101620",
+        borderLeftColor: tier === 3 ? "var(--twin-predicted)" : undefined,
+        background: tier === 2 ? "var(--bg-raised)" : "var(--bg-panel)",
       }}
     >
       {sensorId && (
-        <span className="absolute top-1 right-1 label-xs" style={{ color: "#546678", fontSize: 9 }}>{sensorId}</span>
+        <span className="absolute top-1 right-1 label-xs" style={{ color: "var(--text-muted)", fontSize: 9 }}>{sensorId}</span>
       )}
       <div className="label-xs">{label}</div>
       <div className="flex items-baseline gap-1">
@@ -72,7 +72,7 @@ export default function TelemetryTile({ label, value, unit, sparkline, rangeMin,
         </span>
         <span className="label-xs" style={{ fontSize: 11 }}>{unit}</span>
         {predicted !== undefined && (
-          <span className="font-mono ml-1" style={{ fontSize: 11, color: "#7B61FF" }}>
+          <span className="font-mono ml-1" style={{ fontSize: 11, color: "var(--twin-predicted)" }}>
             ↔ {typeof predicted === "number" ? predicted.toFixed(predicted < 10 ? 1 : 0) : predicted}
           </span>
         )}
@@ -91,7 +91,7 @@ export default function TelemetryTile({ label, value, unit, sparkline, rangeMin,
         </div>
       )}
       {state === "stale" && (
-        <div className="label-xs" style={{ color: "#546678" }}>STALE</div>
+        <div className="label-xs" style={{ color: "var(--text-muted)" }}>STALE</div>
       )}
     </div>
   );

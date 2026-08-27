@@ -17,22 +17,22 @@ export default function AlertDock() {
   return (
     <div
       className="flex items-center gap-2 px-3 select-none"
-      style={{ height: 72, background: "#101620", borderTop: "1px solid #243040", flexShrink: 0 }}
+      style={{ height: 72, background: "var(--bg-panel)", borderTop: "1px solid var(--stroke-hairline)", flexShrink: 0 }}
     >
       {/* Counter and ACK ALL */}
       <div
         className="flex flex-col items-center justify-center gap-1 px-3 shrink-0"
-        style={{ borderRight: "1px solid #243040", height: "100%", minWidth: 120 }}
+        style={{ borderRight: "1px solid var(--stroke-hairline)", height: "100%", minWidth: 120 }}
       >
         <div className="flex items-center justify-between w-full">
-          <span className="label-xs" style={{ fontSize: 9, color: "#8CA0B8" }}>
+          <span className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
             ALERT DOCK
           </span>
           {counts.unackTotal > 0 && (
             <button
               onClick={acknowledgeAllAlerts}
               className="font-mono text-[9px] px-1.5 py-0.5 rounded cursor-pointer hover:bg-white/10"
-              style={{ background: "#18202C", color: "#00C08B", border: "1px solid #00C08B40" }}
+              style={{ background: "var(--bg-raised)", color: "var(--state-nominal)", border: "1px solid var(--state-nominal)40" }}
               title="Acknowledge all alerts"
             >
               ACK ALL
@@ -42,14 +42,14 @@ export default function AlertDock() {
 
         <div className="flex gap-1.5">
           {counts.critical > 0 && (
-            <span className="font-mono font-bold" style={{ fontSize: 10, color: "#FF3B4E" }}>
+            <span className="font-mono font-bold" style={{ fontSize: 10, color: "var(--state-critical)" }}>
               {counts.critical} CRIT
             </span>
           )}
-          <span className="font-mono font-bold" style={{ fontSize: 10, color: counts.warning > 0 ? "#FF7A2F" : "#546678" }}>
+          <span className="font-mono font-bold" style={{ fontSize: 10, color: counts.warning > 0 ? "var(--state-warning)" : "var(--text-muted)" }}>
             {counts.warning} WARN
           </span>
-          <span className="font-mono font-bold" style={{ fontSize: 10, color: counts.caution > 0 ? "#F5B335" : "#546678" }}>
+          <span className="font-mono font-bold" style={{ fontSize: 10, color: counts.caution > 0 ? "var(--state-caution)" : "var(--text-muted)" }}>
             {counts.caution} CAUT
           </span>
         </div>
@@ -58,7 +58,7 @@ export default function AlertDock() {
       {/* Alert stream */}
       <div className="flex gap-2 overflow-x-auto flex-1 items-center py-1.5" style={{ height: "100%" }}>
         {activeAlerts.length === 0 ? (
-          <div className="flex items-center gap-2 text-xs font-mono" style={{ color: "#00C08B" }}>
+          <div className="flex items-center gap-2 text-xs font-mono" style={{ color: "var(--state-nominal)" }}>
             <span>✓</span> NO ACTIVE ALERTS · ALL SUBSYSTEMS NOMINAL
           </div>
         ) : (
@@ -67,15 +67,15 @@ export default function AlertDock() {
               key={alert.id}
               className="flex flex-col gap-1 px-2.5 py-1.5 rounded shrink-0 transition-all"
               style={{
-                background: alert.acknowledged ? "#121822" : "#18202C",
+                background: alert.acknowledged ? "var(--bg-base)" : "var(--bg-raised)",
                 border: `1px solid ${
                   alert.acknowledged
-                    ? "#243040"
+                    ? "var(--stroke-hairline)"
                     : alert.severity === "critical"
-                    ? "#FF3B4E"
+                    ? "var(--state-critical)"
                     : alert.severity === "warning"
-                    ? "#FF7A2F60"
-                    : "#F5B33560"
+                    ? "var(--state-warning)60"
+                    : "var(--state-caution)60"
                 }`,
                 opacity: alert.acknowledged ? 0.6 : 1,
                 maxWidth: 290,
@@ -84,18 +84,18 @@ export default function AlertDock() {
             >
               <div className="flex items-center gap-2">
                 <SeverityChip severity={alert.severity} size="sm" />
-                <span className="font-mono" style={{ fontSize: 10, color: "#546678" }}>
+                <span className="font-mono" style={{ fontSize: 10, color: "var(--text-muted)" }}>
                   {alert.time}
                 </span>
-                <span className="label-xs" style={{ fontSize: 9, color: "#8CA0B8" }}>
+                <span className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
                   {alert.subsystem}
                 </span>
-                <span className="font-mono ml-auto font-medium" style={{ fontSize: 10, color: "#7B61FF" }}>
+                <span className="font-mono ml-auto font-medium" style={{ fontSize: 10, color: "var(--twin-predicted)" }}>
                   {alert.confidence}%
                 </span>
                 <button
                   onClick={() => dismissAlert(alert.id)}
-                  className="font-mono text-[10px] text-[#546678] hover:text-[#E8EEF6] cursor-pointer ml-1"
+                  className="font-mono text-[10px] text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer ml-1"
                   title="Dismiss alert"
                 >
                   ✕
@@ -105,7 +105,7 @@ export default function AlertDock() {
               <p
                 style={{
                   fontSize: 11,
-                  color: "#E8EEF6",
+                  color: "var(--text-primary)",
                   margin: 0,
                   lineHeight: 1.3,
                   overflow: "hidden",
@@ -122,18 +122,18 @@ export default function AlertDock() {
                   <button
                     onClick={() => acknowledgeAlert(alert.id)}
                     className="font-mono px-2 py-0.5 rounded cursor-pointer hover:bg-white/10"
-                    style={{ fontSize: 9, background: "#243040", color: "#E8EEF6", border: "1px solid #3a4f6a" }}
+                    style={{ fontSize: 9, background: "var(--stroke-hairline)", color: "var(--text-primary)", border: "1px solid var(--stroke-hairline)" }}
                   >
                     ACK
                   </button>
                   <button
                     onClick={() => navigateToScreen("faults", "F-0043")}
-                    className="font-mono px-2 py-0.5 rounded cursor-pointer hover:bg-[#3DA9FC]/20"
+                    className="font-mono px-2 py-0.5 rounded cursor-pointer hover:bg-[var(--state-advisory)]/20"
                     style={{
                       fontSize: 9,
                       background: "rgba(61,169,252,0.15)",
-                      color: "#3DA9FC",
-                      border: "1px solid #3DA9FC50",
+                      color: "var(--state-advisory)",
+                      border: "1px solid var(--state-advisory)50",
                     }}
                   >
                     INSPECT XAI →

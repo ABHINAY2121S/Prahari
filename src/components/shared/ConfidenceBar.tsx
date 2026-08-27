@@ -5,7 +5,7 @@ interface Props {
 }
 
 export default function ConfidenceBar({ value, label = true, width }: Props) {
-  const color = value >= 85 ? "#00C08B" : value >= 70 ? "#F5B335" : "#FF7A2F";
+  const color = value >= 85 ? "var(--state-nominal)" : value >= 70 ? "var(--state-caution)" : "var(--state-warning)";
   return (
     <div className="flex items-center gap-2" style={width ? { width } : undefined}>
       <div className="confidence-bar flex-1" style={{ height: 4 }}>
