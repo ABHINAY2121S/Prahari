@@ -46,7 +46,7 @@ export default function S8_Fleet() {
       {/* Fleet summary strip */}
       <div className="flex gap-2">
         {[
-          { label: "TOTAL AIRFRAMES", val: fleet.length, sub: "in fleet inventory", color: "var(--text-primary)" },
+          { label: "TOTAL AIRFRAMES", val: fleet.length, sub: "in fleet inventory", color: "var(--state-advisory)" },
           { label: "AIRBORNE NOW", val: fleet.filter((a) => a.live).length, sub: "active sorties", color: "var(--state-nominal)" },
           {
             label: "GROUNDED / MAINTENANCE",

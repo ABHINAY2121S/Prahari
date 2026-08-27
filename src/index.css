@@ -127,3 +127,143 @@ body {
   text-transform: uppercase;
   color: var(--text-muted);
 }
+
+
+/* Light mode depth - visual enrichment */
+
+/* Subtle page gradient */
+:root body {
+  background: linear-gradient(180deg, #E8EFF7 0%, #EEF2F6 60%);
+}
+
+/* Panel shadow for card depth in light mode */
+:root .panel {
+  box-shadow: 0 1px 3px rgba(23,32,51,0.06), 0 0 0 1px var(--stroke-hairline);
+}
+
+/* Raised sections: deeper blue tint instead of plain gray */
+:root [style*='background: var(--bg-raised)'],
+:root [style*='background:var(--bg-raised)'] {
+  background: #EAF0FA !important;
+}
+
+/* Stat numbers in fleet/overview top bar: advisory blue instead of plain navy */
+:root .font-mono.font-bold {
+  color: var(--state-advisory);
+}
+
+/* Section sub-labels stay muted */
+:root .label-xs {
+  color: var(--text-muted);
+}
+
+/* Active filter/pill tint */
+:root [style*='var(--table-selected)'] {
+  background: rgba(21,82,163,0.09) !important;
+  border-color: rgba(21,82,163,0.25) !important;
+}
+
+/* Health bars: richer green gradient */
+:root [style*='background: var(--state-nominal)'] {
+  background: linear-gradient(90deg, #087F5B, #0CA678) !important;
+}
+
+/* Section header row (bg-base + borderBottom pattern) */
+:root [style*='background: var(--bg-base)'][style*='borderBottom'] {
+  background: var(--bg-panel) !important;
+  border-bottom-color: var(--stroke-medium) !important;
+}
+
+/* Table/grid alternating rows */
+:root [style*='background: var(--table-hover)'] {
+  background: #EBF1FA !important;
+}
+
+/* panel cards - depth in light mode */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--stroke-hairline);
+  border-radius: 3px;
+}
+:root .panel {
+  box-shadow: 0 1px 2px rgba(23,32,51,0.07), 0 0 0 1px rgba(176,192,211,0.5);
+}
+
+/* bg-raised override: give it a visible blue tint in light mode */
+:root [style*="background: var(--bg-raised)"] {
+  background: #E6EEF8 !important;
+  border-color: #B8CCE0 !important;
+}
+
+/* Section header bar accent line */
+:root [style*="borderBottom"][style*="background: var(--bg-base)"] {
+  background: linear-gradient(90deg, #E2EBF6 0%, var(--bg-base) 100%) !important;
+  border-bottom-color: var(--stroke-medium) !important;
+}
+
+
+/* ================================================================
+   LIGHT MODE POLISH  -  Defence Engineering Console Depth
+   Applied globally so no screen TSX files need individual edits.
+   ================================================================ */
+
+/* .panel class: the base card used on every screen */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--stroke-hairline);
+  border-radius: 3px;
+}
+
+/* Soft shadow on cards in light mode only */
+:root .panel {
+  box-shadow: 0 1px 3px rgba(23,32,51,0.07);
+}
+
+/* Page: subtle top-down cool gradient */
+:root body {
+  background: linear-gradient(160deg, #E6EDF7 0%, #EEF2F6 50%) fixed;
+}
+
+/* bg-raised surfaces: clear blue-tint to distinguish from white cards */
+:root [style*="background: var(--bg-raised)"] {
+  background: #E8F0FA !important;
+}
+
+/* section header rows that use bg-base + borderBottom:
+   tint with a subtle blue wash and a heavier bottom line */
+:root [style*="background: var(--bg-base)"][style*="borderBottom"] {
+  background: #E4EBF6 !important;
+  border-bottom-color: var(--stroke-medium) !important;
+}
+
+/* Nav active item: blue tint highlight bar */
+:root [style*="rgba(216,228,240,0.12)"] {
+  background: rgba(21,82,163,0.08) !important;
+}
+
+/* Health / status progress bars: richer gradient */
+:root [style*="background: var(--state-nominal)"] {
+  background: linear-gradient(90deg, #076E4E, #0CA678) !important;
+}
+:root [style*="background: var(--state-advisory)"] {
+  background: linear-gradient(90deg, #0F4FA8, #1A7ADE) !important;
+}
+:root [style*="background: var(--state-caution)"] {
+  background: linear-gradient(90deg, #7A4800, #C76B00) !important;
+}
+:root [style*="background: var(--state-warning)"] {
+  background: linear-gradient(90deg, #9A3000, #E07020) !important;
+}
+:root [style*="background: var(--state-critical)"] {
+  background: linear-gradient(90deg, #A01020, #D63030) !important;
+}
+
+/* Table/card hover rows */
+:root [style*="background: var(--table-hover)"] {
+  background: #E0EBF8 !important;
+}
+
+/* filter pill hover */
+:root [style*="background: var(--bg-raised)"][style*="cursor"] {
+  background: #E8F0FA !important;
+}

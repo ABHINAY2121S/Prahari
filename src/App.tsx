@@ -134,8 +134,9 @@ function MainApp() {
         className="flex items-center px-4 gap-2.5"
         style={{
           height: 32,
-          background: "var(--bg-base)",
-          borderBottom: "1px solid var(--stroke-hairline)",
+          background: "var(--bg-panel)",
+          borderBottom: "2px solid var(--stroke-medium)",
+          borderTop: "1px solid var(--stroke-hairline)",
           flexShrink: 0,
         }}
       >
