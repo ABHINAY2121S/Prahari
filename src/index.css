@@ -1,97 +1,131 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 
-:root,
-[data-theme="dark"] {
-  --bg-command: #131E2E;
-  --bg-nav: #0F1824;
-  --border-command: #2B3E57;
-  --text-command: #D8E4F0;
-  --text-command-muted: #7A96B2;
-}
+/* ================================================================
+   PRAHARI-DT  -  UNIFIED DESIGN SYSTEM
+   Philosophy: Same design language, two operational environments.
+   Dark  = Night Ops / Mission Control
+   Light = Day Ops / Engineering Console
+   ================================================================ */
 
 :root {
-  --bg-base: #EEF2F6;
-  --bg-panel: #FFFFFF;
-  --bg-raised: #F5F7FA;
+  /* Dark Command Header Tokens (Top Bar is always dark command station) */
+  --bg-command:              #131E2E;
+  --bg-command-control:      rgba(255, 255, 255, 0.08);
+  --bg-command-control-hover:rgba(255, 255, 255, 0.14);
+  --border-command:          #2B3E57;
+  --border-command-control:  rgba(255, 255, 255, 0.18);
+  --text-command:            #ECF2F8;
+  --text-command-secondary:  #A0B4C8;
+  --text-command-muted:      #728AA2;
+
+  /* Content area (Day Ops / Engineering Console) */
+  --bg-base:    #EEF2F6;
+  --bg-panel:   #FFFFFF;
+  --bg-raised:  #F5F7FA;
+  --bg-nav:     #FFFFFF;
+
   --stroke-hairline: #CBD5E1;
-  --stroke-medium: #9DB0C8;
-  --text-primary: #172033;
+  --stroke-medium:   #9DB0C8;
+
+  --text-primary:   #172033;
   --text-secondary: #526174;
-  --text-muted: #8EA3B8;
-  --text-inverse: #F0F4F8;
-  --state-nominal: #087F5B;
+  --text-muted:     #8EA3B8;
+  --text-inverse:   #F0F4F8;
+
+  --state-nominal:  #087F5B;
   --state-advisory: #1552A3;
-  --state-caution: #8B5000;
-  --state-warning: #C76B00;
+  --state-caution:  #8B5000;
+  --state-warning:  #C76B00;
   --state-critical: #C62828;
+
   --twin-predicted: #4338CA;
-  --accent-india: #C45000;
+  --accent-india:   #C45000;
   --accent-india-2: #087F5B;
-  --scrollbar-track: #EEF2F6;
-  --scrollbar-thumb: #9DB0C8;
+
+  --scrollbar-track:       #EEF2F6;
+  --scrollbar-thumb:       #9DB0C8;
   --scrollbar-thumb-hover: #526174;
-  --table-border: #CBD5E1;
-  --table-hover: #E8EFF7;
-  --table-selected: rgba(21,82,163,0.10);
-  --chart-grid: #CBD5E1;
-  --chart-tooltip-bg: #FFFFFF;
+
+  --table-border:    #CBD5E1;
+  --table-hover:     #E8EFF7;
+  --table-selected:  rgba(21, 82, 163, 0.10);
+
+  --chart-grid:           #CBD5E1;
+  --chart-tooltip-bg:     #FFFFFF;
   --chart-tooltip-border: #9DB0C8;
-  --chart-tooltip-text: #172033;
-  --bg-nav: #FFFFFF;
+  --chart-tooltip-text:   #172033;
 }
 
 [data-theme='dark'] {
-  --bg-base: #080B10;
-  --bg-panel: #101620;
-  --bg-raised: #18202C;
+  /* Dark Command Header Tokens */
+  --bg-command:              #101620;
+  --bg-command-control:      #18202C;
+  --bg-command-control-hover:#222C3D;
+  --border-command:          #243040;
+  --border-command-control:  #2E3F55;
+  --text-command:            #E8EEF6;
+  --text-command-secondary:  #A0B4C8;
+  --text-command-muted:      #546678;
+
+  /* Content area (Night Ops / Mission Control) */
+  --bg-base:    #080B10;
+  --bg-panel:   #101620;
+  --bg-raised:  #18202C;
+  --bg-nav:     #0F1824;
+
   --stroke-hairline: #243040;
-  --stroke-medium: #2E3F55;
-  --text-primary: #E8EEF6;
+  --stroke-medium:   #2E3F55;
+
+  --text-primary:   #E8EEF6;
   --text-secondary: #8CA0B8;
-  --text-muted: #546678;
-  --text-inverse: #E8EEF6;
-  --state-nominal: #00C08B;
+  --text-muted:     #546678;
+  --text-inverse:   #E8EEF6;
+
+  --state-nominal:  #00C08B;
   --state-advisory: #3DA9FC;
-  --state-caution: #F5B335;
-  --state-warning: #FF7A2F;
+  --state-caution:  #F5B335;
+  --state-warning:  #FF7A2F;
   --state-critical: #FF3B4E;
+
   --twin-predicted: #7B61FF;
-  --accent-india: #FF9933;
+  --accent-india:   #FF9933;
   --accent-india-2: #138808;
-  --scrollbar-track: #080B10;
-  --scrollbar-thumb: #18202C;
+
+  --scrollbar-track:       #080B10;
+  --scrollbar-thumb:       #18202C;
   --scrollbar-thumb-hover: #3a4f6a;
-  --table-border: #1a2233;
-  --table-hover: #141b27;
-  --table-selected: rgba(61,169,252,0.12);
-  --chart-grid: #243040;
-  --chart-tooltip-bg: #101620;
+
+  --table-border:    #1a2233;
+  --table-hover:     #141b27;
+  --table-selected:  rgba(61, 169, 252, 0.12);
+
+  --chart-grid:           #243040;
+  --chart-tooltip-bg:     #101620;
   --chart-tooltip-border: #243040;
-  --chart-tooltip-text: #E8EEF6;
-  --bg-nav: #0F1824;
+  --chart-tooltip-text:   #E8EEF6;
 }
 
 @theme {
-  --color-bg-base: var(--bg-base);
-  --color-bg-panel: var(--bg-panel);
-  --color-bg-raised: var(--bg-raised);
-  --color-bg-command: var(--bg-command);
-  --color-bg-nav: var(--bg-nav);
-  --color-stroke-hairline: var(--stroke-hairline);
-  --color-stroke-medium: var(--stroke-medium);
-  --color-text-primary: var(--text-primary);
+  --color-bg-base:        var(--bg-base);
+  --color-bg-panel:       var(--bg-panel);
+  --color-bg-raised:      var(--bg-raised);
+  --color-bg-command:     var(--bg-command);
+  --color-bg-nav:         var(--bg-nav);
+  --color-stroke-hairline:var(--stroke-hairline);
+  --color-stroke-medium:  var(--stroke-medium);
+  --color-text-primary:   var(--text-primary);
   --color-text-secondary: var(--text-secondary);
-  --color-text-muted: var(--text-muted);
-  --color-text-inverse: var(--text-inverse);
-  --color-text-command: var(--text-command);
-  --color-state-nominal: var(--state-nominal);
+  --color-text-muted:     var(--text-muted);
+  --color-text-inverse:   var(--text-inverse);
+  --color-text-command:   var(--text-command);
+  --color-state-nominal:  var(--state-nominal);
   --color-state-advisory: var(--state-advisory);
-  --color-state-caution: var(--state-caution);
-  --color-state-warning: var(--state-warning);
+  --color-state-caution:  var(--state-caution);
+  --color-state-warning:  var(--state-warning);
   --color-state-critical: var(--state-critical);
   --color-twin-predicted: var(--twin-predicted);
-  --color-accent-india: var(--accent-india);
+  --color-accent-india:   var(--accent-india);
   --color-accent-india-2: var(--accent-india-2);
 }
 
@@ -126,144 +160,4 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);
-}
-
-
-/* Light mode depth - visual enrichment */
-
-/* Subtle page gradient */
-:root body {
-  background: linear-gradient(180deg, #E8EFF7 0%, #EEF2F6 60%);
-}
-
-/* Panel shadow for card depth in light mode */
-:root .panel {
-  box-shadow: 0 1px 3px rgba(23,32,51,0.06), 0 0 0 1px var(--stroke-hairline);
-}
-
-/* Raised sections: deeper blue tint instead of plain gray */
-:root [style*='background: var(--bg-raised)'],
-:root [style*='background:var(--bg-raised)'] {
-  background: #EAF0FA !important;
-}
-
-/* Stat numbers in fleet/overview top bar: advisory blue instead of plain navy */
-:root .font-mono.font-bold {
-  color: var(--state-advisory);
-}
-
-/* Section sub-labels stay muted */
-:root .label-xs {
-  color: var(--text-muted);
-}
-
-/* Active filter/pill tint */
-:root [style*='var(--table-selected)'] {
-  background: rgba(21,82,163,0.09) !important;
-  border-color: rgba(21,82,163,0.25) !important;
-}
-
-/* Health bars: richer green gradient */
-:root [style*='background: var(--state-nominal)'] {
-  background: linear-gradient(90deg, #087F5B, #0CA678) !important;
-}
-
-/* Section header row (bg-base + borderBottom pattern) */
-:root [style*='background: var(--bg-base)'][style*='borderBottom'] {
-  background: var(--bg-panel) !important;
-  border-bottom-color: var(--stroke-medium) !important;
-}
-
-/* Table/grid alternating rows */
-:root [style*='background: var(--table-hover)'] {
-  background: #EBF1FA !important;
-}
-
-/* panel cards - depth in light mode */
-.panel {
-  background: var(--bg-panel);
-  border: 1px solid var(--stroke-hairline);
-  border-radius: 3px;
-}
-:root .panel {
-  box-shadow: 0 1px 2px rgba(23,32,51,0.07), 0 0 0 1px rgba(176,192,211,0.5);
-}
-
-/* bg-raised override: give it a visible blue tint in light mode */
-:root [style*="background: var(--bg-raised)"] {
-  background: #E6EEF8 !important;
-  border-color: #B8CCE0 !important;
-}
-
-/* Section header bar accent line */
-:root [style*="borderBottom"][style*="background: var(--bg-base)"] {
-  background: linear-gradient(90deg, #E2EBF6 0%, var(--bg-base) 100%) !important;
-  border-bottom-color: var(--stroke-medium) !important;
-}
-
-
-/* ================================================================
-   LIGHT MODE POLISH  -  Defence Engineering Console Depth
-   Applied globally so no screen TSX files need individual edits.
-   ================================================================ */
-
-/* .panel class: the base card used on every screen */
-.panel {
-  background: var(--bg-panel);
-  border: 1px solid var(--stroke-hairline);
-  border-radius: 3px;
-}
-
-/* Soft shadow on cards in light mode only */
-:root .panel {
-  box-shadow: 0 1px 3px rgba(23,32,51,0.07);
-}
-
-/* Page: subtle top-down cool gradient */
-:root body {
-  background: linear-gradient(160deg, #E6EDF7 0%, #EEF2F6 50%) fixed;
-}
-
-/* bg-raised surfaces: clear blue-tint to distinguish from white cards */
-:root [style*="background: var(--bg-raised)"] {
-  background: #E8F0FA !important;
-}
-
-/* section header rows that use bg-base + borderBottom:
-   tint with a subtle blue wash and a heavier bottom line */
-:root [style*="background: var(--bg-base)"][style*="borderBottom"] {
-  background: #E4EBF6 !important;
-  border-bottom-color: var(--stroke-medium) !important;
-}
-
-/* Nav active item: blue tint highlight bar */
-:root [style*="rgba(216,228,240,0.12)"] {
-  background: rgba(21,82,163,0.08) !important;
-}
-
-/* Health / status progress bars: richer gradient */
-:root [style*="background: var(--state-nominal)"] {
-  background: linear-gradient(90deg, #076E4E, #0CA678) !important;
-}
-:root [style*="background: var(--state-advisory)"] {
-  background: linear-gradient(90deg, #0F4FA8, #1A7ADE) !important;
-}
-:root [style*="background: var(--state-caution)"] {
-  background: linear-gradient(90deg, #7A4800, #C76B00) !important;
-}
-:root [style*="background: var(--state-warning)"] {
-  background: linear-gradient(90deg, #9A3000, #E07020) !important;
-}
-:root [style*="background: var(--state-critical)"] {
-  background: linear-gradient(90deg, #A01020, #D63030) !important;
-}
-
-/* Table/card hover rows */
-:root [style*="background: var(--table-hover)"] {
-  background: #E0EBF8 !important;
-}
-
-/* filter pill hover */
-:root [style*="background: var(--bg-raised)"][style*="cursor"] {
-  background: #E8F0FA !important;
 }

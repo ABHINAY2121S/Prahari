@@ -12,7 +12,7 @@ interface Props {
 
 
 
-function StatusPill({ label, value, color = "var(--text-secondary)" }: { label: string; value: string; color?: string }) {
+function StatusPill({ label, value, color = "var(--text-command)" }: { label: string; value: string; color?: string }) {
 
   return (
 
@@ -22,9 +22,9 @@ function StatusPill({ label, value, color = "var(--text-secondary)" }: { label: 
 
       style={{
 
-        background: "var(--bg-raised)",
+        background: "var(--bg-command-control)",
 
-        border: "1px solid var(--stroke-hairline)",
+        border: "1px solid var(--border-command)",
 
       }}
 
@@ -130,9 +130,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
         height: 56,
 
-        background: "var(--bg-panel)",
+        background: "var(--bg-command)",
 
-        borderBottom: "1px solid var(--stroke-hairline)",
+        borderBottom: "1px solid var(--border-command)",
 
       }}
 
@@ -152,9 +152,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
             style={{
 
-              background: "var(--bg-raised)",
+              background: "var(--bg-command-control)",
 
-              border: "1px solid var(--stroke-hairline)",
+              border: "1px solid var(--border-command)",
 
             }}
 
@@ -166,7 +166,7 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
                 <span style={{ fontSize: 10 }}>🇮🇳</span>
 
-                <span className="font-display font-semibold" style={{ fontSize: 13, color: "var(--text-primary)" }}>
+                <span className="font-display font-semibold" style={{ fontSize: 13, color: "var(--text-command)" }}>
 
                   {activeAirframe.platform}
 
@@ -180,7 +180,7 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
               </div>
 
-              <span className="font-mono text-[9px]" style={{ color: "var(--text-muted)" }}>
+              <span className="font-mono text-[9px]" style={{ color: "var(--text-command-muted)" }}>
 
                 {activeAirframe.engine || "DRDO-AD180"} · EHI {activeAirframe.ehi}
 
@@ -188,7 +188,7 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
             </div>
 
-            <span style={{ color: "var(--text-muted)", fontSize: 10 }}>▾</span>
+            <span style={{ color: "var(--text-command-muted)", fontSize: 10 }}>▾</span>
 
           </button>
 
@@ -202,9 +202,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
               style={{
 
-                background: "var(--bg-raised)",
+                background: "var(--bg-command-control)",
 
-                border: "1px solid var(--stroke-hairline)",
+                border: "1px solid var(--border-command)",
 
                 minWidth: 240,
 
@@ -218,9 +218,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
                 style={{
 
-                  borderColor: "var(--stroke-hairline)",
+                  borderColor: "var(--border-command)",
 
-                  color: "var(--text-secondary)",
+                  color: "var(--text-command-secondary)",
 
                 }}
 
@@ -240,7 +240,7 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
                   style={{
 
-                    borderBottom: "1px solid var(--stroke-hairline)",
+                    borderBottom: "1px solid var(--border-command)",
 
                     background: ac.tail === activeAirframe.tail ? "var(--table-selected)" : "transparent",
 
@@ -262,13 +262,13 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
                     <div>
 
-                      <div className="font-display font-semibold text-xs" style={{ color: "var(--text-primary)" }}>
+                      <div className="font-display font-semibold text-xs" style={{ color: "var(--text-command)" }}>
 
                         {ac.tail}
 
                       </div>
 
-                      <div className="font-mono text-[9px]" style={{ color: "var(--text-muted)" }}>
+                      <div className="font-mono text-[9px]" style={{ color: "var(--text-command-muted)" }}>
 
                         {ac.platform} · {ac.phase}
 
@@ -322,13 +322,13 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
           <div className="flex flex-col">
 
-            <span className="font-mono font-bold text-xs" style={{ color: "var(--text-primary)" }}>
+            <span className="font-mono font-bold text-xs" style={{ color: "var(--text-command)" }}>
 
               ISR-2026-0418
 
             </span>
 
-            <span className="font-mono text-[9px]" style={{ color: "var(--text-secondary)" }}>
+            <span className="font-mono text-[9px]" style={{ color: "var(--text-command-secondary)" }}>
 
               Maritime ISR · EO/IR + SAR
 
@@ -340,7 +340,7 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
             <span className="label-xs text-[9px]" style={{ color: "var(--text-command-muted)" }}>T+ ELAPSED</span>
 
-            <span className="font-mono font-bold text-xs" style={{ color: "var(--text-primary)" }}>
+            <span className="font-mono font-bold text-xs" style={{ color: "var(--text-command)" }}>
 
               07:42:19
 
@@ -384,9 +384,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
           style={{
 
-            background: "var(--bg-raised)",
+            background: "var(--bg-command-control)",
 
-            border: "1px solid var(--stroke-hairline)",
+            border: "1px solid var(--border-command)",
 
           }}
 
@@ -490,9 +490,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
           style={{
 
-            background: "var(--bg-raised)",
+            background: "var(--bg-command-control)",
 
-            border: "1px solid var(--stroke-hairline)",
+            border: "1px solid var(--border-command)",
 
             color: soundOn ? "var(--state-advisory)" : "var(--text-command-muted)",
 
@@ -520,11 +520,11 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
           style={{
 
-            background: "var(--bg-raised)",
+            background: "var(--bg-command-control)",
 
-            border: "1px solid var(--stroke-hairline)",
+            border: "1px solid var(--border-command)",
 
-            color: "var(--text-secondary)",
+            color: "var(--text-command-secondary)",
 
             fontSize: 13,
 
@@ -550,9 +550,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
           style={{
 
-            background: armMode ? "var(--state-critical)" : "var(--bg-raised)",
+            background: armMode ? "var(--state-critical)" : "var(--bg-command-control)",
 
-            border: `1px solid ${armMode ? "var(--state-critical)" : "var(--stroke-hairline)"}`,
+            border: `1px solid ${armMode ? "var(--state-critical)" : "var(--border-command)"}`,
 
             color: armMode ? "#FFFFFF" : "var(--text-secondary)",
 
@@ -600,9 +600,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
               style={{
 
-                background: "var(--bg-raised)",
+                background: "var(--bg-command-control)",
 
-                border: "1px solid var(--stroke-hairline)",
+                border: "1px solid var(--border-command)",
 
               }}
 
@@ -610,7 +610,7 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
               <div className="flex flex-col text-left">
 
-                <span className="font-display font-semibold text-xs" style={{ color: "var(--text-primary)" }}>
+                <span className="font-display font-semibold text-xs" style={{ color: "var(--text-command)" }}>
 
                   {user.rank}
 
@@ -624,7 +624,7 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
               </div>
 
-              <span style={{ fontSize: 9, color: "var(--text-muted)" }}>▾</span>
+              <span style={{ fontSize: 9, color: "var(--text-command-muted)" }}>▾</span>
 
             </button>
 
@@ -638,9 +638,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
                 style={{
 
-                  background: "var(--bg-raised)",
+                  background: "var(--bg-command-control)",
 
-                  border: "1px solid var(--stroke-hairline)",
+                  border: "1px solid var(--border-command)",
 
                   minWidth: 220,
 
@@ -648,9 +648,9 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
 
               >
 
-                <div className="border-b pb-2 mb-2" style={{ borderColor: "var(--stroke-hairline)" }}>
+                <div className="border-b pb-2 mb-2" style={{ borderColor: "var(--border-command)" }}>
 
-                  <div className="font-display font-bold text-xs" style={{ color: "var(--text-primary)" }}>
+                  <div className="font-display font-bold text-xs" style={{ color: "var(--text-command)" }}>
 
                     {user.name}
 

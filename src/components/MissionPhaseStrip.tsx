@@ -26,7 +26,7 @@ export default function MissionPhaseStrip() {
   return (
     <div
       className="flex items-stretch overflow-hidden select-none"
-      style={{ height: 44, background: "var(--bg-panel)", borderBottom: "1px solid var(--stroke-hairline)" }}
+      style={{ height: 44, background: "var(--bg-command)", borderBottom: "1px solid var(--border-command)" }}
     >
       {missionPhases.map((phase, i) => {
         const past = i < safeIdx;
@@ -41,7 +41,7 @@ export default function MissionPhaseStrip() {
             className="relative flex flex-col items-center justify-center flex-1 overflow-hidden cursor-pointer hover:bg-white/5 transition-colors"
             style={{
               background: current ? "rgba(0,192,139,0.08)" : past ? "transparent" : "transparent",
-              borderRight: "1px solid var(--stroke-hairline)",
+              borderRight: "1px solid var(--border-command)",
               minWidth: 0,
             }}
             title={`Click to set mission phase to ${phase.id}`}
@@ -68,7 +68,7 @@ export default function MissionPhaseStrip() {
               {phase.id}
             </span>
             {past && phase.elapsed && (
-              <span className="font-mono relative" style={{ fontSize: 8, color: "var(--text-muted)" }}>
+              <span className="font-mono relative" style={{ fontSize: 8, color: "var(--text-command-muted)" }}>
                 {phase.elapsed}
               </span>
             )}
@@ -81,7 +81,7 @@ export default function MissionPhaseStrip() {
               </div>
             )}
             {future && phase.planned && (
-              <span className="font-mono relative" style={{ fontSize: 8, color: "var(--stroke-hairline)" }}>
+              <span className="font-mono relative" style={{ fontSize: 8, color: "var(--border-command)" }}>
                 {phase.planned}
               </span>
             )}
@@ -104,10 +104,10 @@ export default function MissionPhaseStrip() {
       {/* Phase envelope dynamic display */}
       <div
         className="flex items-center px-3 shrink-0"
-        style={{ background: "var(--bg-raised)", borderLeft: "1px solid var(--stroke-hairline)", minWidth: 320 }}
+        style={{ background: "var(--bg-command-control)", borderLeft: "1px solid var(--border-command)", minWidth: 320 }}
       >
         <div>
-          <span className="label-xs" style={{ fontSize: 9, color: "var(--text-muted)" }}>
+          <span className="label-xs" style={{ fontSize: 9, color: "var(--text-command-muted)" }}>
             PHASE ENVELOPE ·{" "}
           </span>
           <span className="font-mono" style={{ fontSize: 10, color: "var(--state-advisory)" }}>

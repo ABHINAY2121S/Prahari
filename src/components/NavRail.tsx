@@ -89,7 +89,7 @@ export default function NavRail({ active, onNavigate, expanded, onToggle }: Prop
                 padding: expanded ? "0 14px" : "0",
                 justifyContent: expanded ? "flex-start" : "center",
                 gap: 10,
-                background: isActive ? "rgba(216,228,240,0.12)" : "transparent",
+                background: isActive ? "var(--table-selected)" : "transparent",
                 borderLeft: isActive ? "3px solid var(--state-advisory)" : "3px solid transparent",
                 transition: "background 0.15s, border-color 0.15s",
               }}
