@@ -10,6 +10,12 @@
 
 :root,
 [data-theme='light'] {
+  /* DRDO Official Brand Identity Tokens (from drdo.gov.in) */
+  --drdo-teal:               #0F5757; /* DRDO Emblem & Icon Pine Teal */
+  --drdo-navy:               #162F6A; /* DRDO Tri-Services Command Navy */
+  --drdo-saffron:            #E65100; /* Defense Security Insignia Saffron */
+  --drdo-green:              #046A38; /* Indian Tri-Color Operational Green */
+
   /* Day Ops / Tactical Engineering Console Tokens */
   --bg-command:              #E2E8F0;
   --bg-command-control:      #FFFFFF;
@@ -21,7 +27,7 @@
   --text-command-muted:      #576F86;
 
   /* Content workspace area */
-  --bg-base:    #E9EFF5;
+  --bg-base:    #EDF2F7;
   --bg-panel:   #FFFFFF;
   --bg-raised:  #F1F5F9;
   --bg-nav:     #FFFFFF;
@@ -36,22 +42,22 @@
 
   /* Defense High-Contrast Status Tokens */
   --state-nominal:  #047857;
-  --state-advisory: #1D4ED8;
+  --state-advisory: #162F6A; /* DRDO Navy for Primary C2 & Telemetry Tags */
   --state-caution:  #B45309;
   --state-warning:  #C2410C;
   --state-critical: #B91C1C;
 
-  --twin-predicted: #4338CA;
-  --accent-india:   #D97706;
-  --accent-india-2: #047857;
+  --twin-predicted: #0F5757; /* DRDO Teal for Twin Model Projection */
+  --accent-india:   #E65100;
+  --accent-india-2: #0F5757;
 
-  --scrollbar-track:       #E9EFF5;
+  --scrollbar-track:       transparent;
   --scrollbar-thumb:       #CBD5E1;
   --scrollbar-thumb-hover: #94A3B8;
 
   --table-border:    #CBD5E1;
   --table-hover:     #F1F5F9;
-  --table-selected:  rgba(29, 78, 216, 0.08);
+  --table-selected:  rgba(22, 47, 106, 0.08);
 
   --chart-grid:           #E2E8F0;
   --chart-tooltip-bg:     #FFFFFF;
@@ -136,19 +142,54 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--bg-base);
   background-image: radial-gradient(var(--stroke-hairline) 1px, transparent 1px);
   background-size: 20px 20px;
   color: var(--text-primary);
-  margin: 0;
-  overflow: hidden;
 }
 
-.scrollable::-webkit-scrollbar { width: 6px; height: 6px; }
-.scrollable::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-.scrollable::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
-.scrollable::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+/* Global tactical scrollbars - completely eliminates default chunky Windows 17px grey bars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+/* Explicit hide utility for horizontal streams */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
 
 /* DRDO Aeronautical Card & Panel Design */
 .panel {

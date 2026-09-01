@@ -174,7 +174,7 @@ function EngineSchematic({
 
 function TwinSyncBar({ ehi }: { ehi: number }) {
   return (
-    <div className="panel p-2 flex items-center gap-4">
+    <div className="panel p-2 flex items-center gap-4" style={{ flexShrink: 0 }}>
       <div className="flex items-center gap-2">
         <div className="twin-pulse" style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--twin-predicted)" }} />
         <span className="label-xs">TWIN SYNC</span>

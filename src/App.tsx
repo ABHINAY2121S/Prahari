@@ -112,8 +112,10 @@ function MainApp() {
     <div
       className="flex flex-col select-none"
       style={{
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "100%",
+        maxWidth: "100vw",
+        maxHeight: "100vh",
         background: "var(--bg-base)",
         color: "var(--text-primary)",
         overflow: "hidden",

@@ -101,12 +101,13 @@ export default function S8_Fleet() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className="font-mono px-2 py-0.5 rounded cursor-pointer"
+                  className="font-mono px-2 py-0.5 rounded cursor-pointer transition-colors"
                   style={{
                     fontSize: 9,
                     background: filter === f ? "var(--table-selected)" : "var(--bg-raised)",
                     color: filter === f ? "var(--state-advisory)" : "var(--text-muted)",
-                    border: `1px solid ${filter === f ? "var(--state-advisory)40" : "var(--stroke-hairline)"}`,
+                    border: `1px solid ${filter === f ? "var(--state-advisory)" : "var(--stroke-hairline)"}`,
+                    fontWeight: filter === f ? "bold" : "normal",
                   }}
                 >
                   {f}
@@ -115,18 +116,22 @@ export default function S8_Fleet() {
             </div>
           </div>
 
-          <div className="grid gap-2 overflow-y-auto" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
+          <div
+            className="grid gap-2 overflow-y-auto overflow-x-hidden flex-1 min-h-0 pr-1"
+            style={{ gridTemplateColumns: "repeat(auto-fill, minmax(235px, 1fr))" }}
+          >
             {filteredFleet.map((ac) => {
               const isActive = ac.tail === activeAirframe.tail;
               return (
                 <div
                   key={ac.tail}
                   onClick={() => handleSelectAirframe(ac.tail)}
-                  className="panel p-3 cursor-pointer transition-all hover:scale-[1.01]"
+                  className="panel p-3 cursor-pointer transition-all hover:shadow-md"
                   style={{
                     borderLeft: `3px solid ${ehiColor(ac.ehi)}`,
-                    border: isActive ? `1px solid var(--state-advisory)` : "1px solid var(--stroke-hairline)",
+                    border: isActive ? `1.5px solid var(--state-advisory)` : "1px solid var(--stroke-hairline)",
                     background: isActive ? "var(--table-selected)" : "var(--bg-panel)",
+                    boxShadow: isActive ? "0 2px 6px rgba(22, 47, 106, 0.12)" : undefined,
                   }}
                 >
                   <div className="flex items-start gap-2">

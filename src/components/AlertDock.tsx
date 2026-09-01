@@ -56,7 +56,7 @@ export default function AlertDock() {
       </div>
 
       {/* Alert stream */}
-      <div className="flex gap-2 overflow-x-auto flex-1 items-center py-1.5" style={{ height: "100%" }}>
+      <div className="flex gap-2 overflow-x-auto flex-1 items-center py-1.5 no-scrollbar" style={{ height: "100%" }}>
         {activeAlerts.length === 0 ? (
           <div className="flex items-center gap-2 text-xs font-mono" style={{ color: "var(--state-nominal)" }}>
             <span>✓</span> NO ACTIVE ALERTS · ALL SUBSYSTEMS NOMINAL
