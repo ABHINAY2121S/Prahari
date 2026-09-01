@@ -31,8 +31,8 @@ export default function AlertDock() {
           {counts.unackTotal > 0 && (
             <button
               onClick={acknowledgeAllAlerts}
-              className="font-mono text-[9px] px-1.5 py-0.5 rounded cursor-pointer hover:bg-white/10"
-              style={{ background: "var(--bg-raised)", color: "var(--state-nominal)", border: "1px solid var(--state-nominal)40" }}
+              className="font-mono text-[9px] px-1.5 py-0.5 rounded cursor-pointer transition-colors hover:bg-[var(--state-nominal)] hover:text-white"
+              style={{ background: "var(--bg-raised)", color: "var(--state-nominal)", border: "1px solid var(--state-nominal)" }}
               title="Acknowledge all alerts"
             >
               ACK ALL
@@ -67,16 +67,20 @@ export default function AlertDock() {
               key={alert.id}
               className="flex flex-col gap-1 px-2.5 py-1.5 rounded shrink-0 transition-all"
               style={{
-                background: alert.acknowledged ? "var(--bg-base)" : "var(--bg-raised)",
-                border: `1px solid ${
+                background: alert.acknowledged ? "var(--bg-base)" : "var(--bg-panel)",
+                border: "1px solid var(--stroke-hairline)",
+                borderLeft: `3px solid ${
                   alert.acknowledged
                     ? "var(--stroke-hairline)"
                     : alert.severity === "critical"
                     ? "var(--state-critical)"
                     : alert.severity === "warning"
-                    ? "var(--state-warning)60"
-                    : "var(--state-caution)60"
+                    ? "var(--state-warning)"
+                    : alert.severity === "caution"
+                    ? "var(--state-caution)"
+                    : "var(--state-advisory)"
                 }`,
+                boxShadow: "0 1px 3px rgba(15, 23, 42, 0.06)",
                 opacity: alert.acknowledged ? 0.6 : 1,
                 maxWidth: 290,
                 minWidth: 240,
@@ -90,7 +94,7 @@ export default function AlertDock() {
                 <span className="label-xs" style={{ fontSize: 9, color: "var(--text-secondary)" }}>
                   {alert.subsystem}
                 </span>
-                <span className="font-mono ml-auto font-medium" style={{ fontSize: 10, color: "var(--twin-predicted)" }}>
+                <span className="font-mono ml-auto font-semibold" style={{ fontSize: 10, color: "var(--twin-predicted)" }}>
                   {alert.confidence}%
                 </span>
                 <button
@@ -106,6 +110,7 @@ export default function AlertDock() {
                 style={{
                   fontSize: 11,
                   color: "var(--text-primary)",
+                  fontWeight: 500,
                   margin: 0,
                   lineHeight: 1.3,
                   overflow: "hidden",
@@ -121,19 +126,19 @@ export default function AlertDock() {
                 <div className="flex gap-1.5 pt-0.5">
                   <button
                     onClick={() => acknowledgeAlert(alert.id)}
-                    className="font-mono px-2 py-0.5 rounded cursor-pointer hover:bg-white/10"
-                    style={{ fontSize: 9, background: "var(--stroke-hairline)", color: "var(--text-primary)", border: "1px solid var(--stroke-hairline)" }}
+                    className="font-mono px-2 py-0.5 rounded cursor-pointer transition-colors hover:bg-[var(--bg-raised)]"
+                    style={{ fontSize: 9, background: "var(--bg-raised)", color: "var(--text-primary)", border: "1px solid var(--stroke-hairline)" }}
                   >
                     ACK
                   </button>
                   <button
                     onClick={() => navigateToScreen("faults", "F-0043")}
-                    className="font-mono px-2 py-0.5 rounded cursor-pointer hover:bg-[var(--state-advisory)]/20"
+                    className="font-mono px-2 py-0.5 rounded cursor-pointer transition-colors hover:bg-[var(--state-advisory)] hover:text-white"
                     style={{
                       fontSize: 9,
-                      background: "rgba(61,169,252,0.15)",
+                      background: "rgba(29, 78, 216, 0.10)",
                       color: "var(--state-advisory)",
-                      border: "1px solid var(--state-advisory)50",
+                      border: "1px solid var(--state-advisory)",
                     }}
                   >
                     INSPECT XAI →

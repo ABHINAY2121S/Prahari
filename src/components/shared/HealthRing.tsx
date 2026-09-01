@@ -25,7 +25,7 @@ export default function HealthRing({ value, size = 120, label, trend }: Props) {
   return (
     <div className="flex flex-col items-center gap-1">
       <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
-        <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--bg-raised)" strokeWidth={size === 64 ? 6 : 8} />
+        <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--stroke-hairline)" strokeWidth={size === 64 ? 6 : 8} opacity={0.7} />
         <circle
           cx={cx}
           cy={cy}

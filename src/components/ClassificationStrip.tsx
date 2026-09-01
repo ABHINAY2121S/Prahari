@@ -26,24 +26,52 @@ export default function ClassificationStrip() {
     >
       <div className="flex items-center gap-2">
         <div
+          className="twin-pulse"
           style={{
-            width: 8,
-            height: 8,
+            width: 7,
+            height: 7,
             background: "var(--accent-india)",
             borderRadius: "50%",
           }}
         />
-        <span style={{ color: "var(--accent-india)", fontWeight: 600 }}>RESTRICTED</span>
-        <span style={{ color: "var(--text-muted)" }}>—</span>
-        <span style={{ color: "var(--text-secondary)" }}>DRDO / ADE · PRAHARI-DT</span>
+        <span
+          className="px-1.5 py-0.5 rounded font-bold tracking-wider"
+          style={{
+            background: "rgba(217, 119, 6, 0.12)",
+            color: "var(--accent-india)",
+            border: "1px solid rgba(217, 119, 6, 0.35)",
+            fontSize: 9,
+          }}
+        >
+          RESTRICTED
+        </span>
+        <span style={{ color: "var(--text-command-muted)" }}>—</span>
+        <span style={{ color: "var(--text-command)", fontWeight: 600 }}>DRDO / ADE</span>
+        <span style={{ color: "var(--text-command-muted)" }}>·</span>
+        <span style={{ color: "var(--text-command-secondary)" }}>PROPULSION DIGITAL TWIN C2</span>
       </div>
-      <span style={{ color: "var(--twin-predicted)", fontWeight: 600 }}>PRAHARI-DT v1.0</span>
+      <span style={{ color: "var(--twin-predicted)", fontWeight: 700, letterSpacing: "0.08em" }}>
+        PRAHARI-DT v1.0
+      </span>
       <div className="flex items-center gap-3">
-        <span style={{ color: "var(--text-secondary)" }}>UTC {utc}</span>
-        <span style={{ color: "var(--text-command-muted)" }}>|</span>
-        <span style={{ color: "var(--text-secondary)" }}>IST {ist}</span>
-        <span style={{ color: "var(--text-command-muted)" }}>|</span>
-        <span style={{ color: "var(--text-muted)" }}>SESSION: OFFR-7214</span>
+        <div className="flex items-center gap-1.5">
+          <div style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--state-nominal)" }} />
+          <span style={{ color: "var(--text-command-secondary)" }}>UTC {utc}</span>
+        </div>
+        <span style={{ color: "var(--border-command)" }}>|</span>
+        <span style={{ color: "var(--text-command-secondary)" }}>IST {ist}</span>
+        <span style={{ color: "var(--border-command)" }}>|</span>
+        <span
+          className="px-1.5 py-0.2 rounded font-mono"
+          style={{
+            background: "var(--bg-command-control)",
+            border: "1px solid var(--border-command)",
+            color: "var(--text-command-muted)",
+            fontSize: 9,
+          }}
+        >
+          SESSION: OFFR-7214
+        </span>
       </div>
     </div>
   );

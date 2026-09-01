@@ -2,63 +2,65 @@
 @import 'tailwindcss';
 
 /* ================================================================
-   PRAHARI-DT  -  UNIFIED DESIGN SYSTEM
-   Philosophy: Same design language, two operational environments.
-   Dark  = Night Ops / Mission Control
-   Light = Day Ops / Engineering Console
+   PRAHARI-DT  -  UNIFIED DEFENSE DESIGN SYSTEM
+   DRDO / ADE Aeronautical Ground Telemetry & Digital Twin System
+   Dark  = Night Ops / Mission Control Room
+   Light = Day Ops / High-Precision Tactical Engineering Console
    ================================================================ */
 
-:root {
-  /* Dark Command Header Tokens (Top Bar is always dark command station) */
-  --bg-command:              #131E2E;
-  --bg-command-control:      rgba(255, 255, 255, 0.08);
-  --bg-command-control-hover:rgba(255, 255, 255, 0.14);
-  --border-command:          #2B3E57;
-  --border-command-control:  rgba(255, 255, 255, 0.18);
-  --text-command:            #ECF2F8;
-  --text-command-secondary:  #A0B4C8;
-  --text-command-muted:      #728AA2;
+:root,
+[data-theme='light'] {
+  /* Day Ops / Tactical Engineering Console Tokens */
+  --bg-command:              #E2E8F0;
+  --bg-command-control:      #FFFFFF;
+  --bg-command-control-hover:#CBD5E1;
+  --border-command:          #B8CADC;
+  --border-command-control:  #CAD7E6;
+  --text-command:            #0B192C;
+  --text-command-secondary:  #24384D;
+  --text-command-muted:      #576F86;
 
-  /* Content area (Day Ops / Engineering Console) */
-  --bg-base:    #EEF2F6;
+  /* Content workspace area */
+  --bg-base:    #E9EFF5;
   --bg-panel:   #FFFFFF;
-  --bg-raised:  #F5F7FA;
+  --bg-raised:  #F1F5F9;
   --bg-nav:     #FFFFFF;
 
   --stroke-hairline: #CBD5E1;
-  --stroke-medium:   #9DB0C8;
+  --stroke-medium:   #94A3B8;
 
-  --text-primary:   #172033;
-  --text-secondary: #526174;
-  --text-muted:     #8EA3B8;
-  --text-inverse:   #F0F4F8;
+  --text-primary:   #0B192C;
+  --text-secondary: #334155;
+  --text-muted:     #64748B;
+  --text-inverse:   #FFFFFF;
 
-  --state-nominal:  #087F5B;
-  --state-advisory: #1552A3;
-  --state-caution:  #8B5000;
-  --state-warning:  #C76B00;
-  --state-critical: #C62828;
+  /* Defense High-Contrast Status Tokens */
+  --state-nominal:  #047857;
+  --state-advisory: #1D4ED8;
+  --state-caution:  #B45309;
+  --state-warning:  #C2410C;
+  --state-critical: #B91C1C;
 
   --twin-predicted: #4338CA;
-  --accent-india:   #C45000;
-  --accent-india-2: #087F5B;
+  --accent-india:   #D97706;
+  --accent-india-2: #047857;
 
-  --scrollbar-track:       #EEF2F6;
-  --scrollbar-thumb:       #9DB0C8;
-  --scrollbar-thumb-hover: #526174;
+  --scrollbar-track:       #E9EFF5;
+  --scrollbar-thumb:       #CBD5E1;
+  --scrollbar-thumb-hover: #94A3B8;
 
   --table-border:    #CBD5E1;
-  --table-hover:     #E8EFF7;
-  --table-selected:  rgba(21, 82, 163, 0.10);
+  --table-hover:     #F1F5F9;
+  --table-selected:  rgba(29, 78, 216, 0.08);
 
-  --chart-grid:           #CBD5E1;
+  --chart-grid:           #E2E8F0;
   --chart-tooltip-bg:     #FFFFFF;
-  --chart-tooltip-border: #9DB0C8;
-  --chart-tooltip-text:   #172033;
+  --chart-tooltip-border: #94A3B8;
+  --chart-tooltip-text:   #0B192C;
 }
 
 [data-theme='dark'] {
-  /* Dark Command Header Tokens */
+  /* Night Ops / Mission Control Command Header Tokens */
   --bg-command:              #101620;
   --bg-command-control:      #18202C;
   --bg-command-control-hover:#222C3D;
@@ -136,6 +138,8 @@
 
 body {
   background-color: var(--bg-base);
+  background-image: radial-gradient(var(--stroke-hairline) 1px, transparent 1px);
+  background-size: 20px 20px;
   color: var(--text-primary);
   margin: 0;
   overflow: hidden;
@@ -146,11 +150,81 @@ body {
 .scrollable::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
 .scrollable::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
 
+/* DRDO Aeronautical Card & Panel Design */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--stroke-hairline);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.03);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
 .inferred-card {
   background: var(--bg-panel);
   border: 1px solid var(--stroke-hairline);
   border-radius: 4px;
   padding: 10px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+.raised {
+  background: var(--bg-raised);
+  border: 1px solid var(--stroke-hairline);
+  border-radius: 4px;
+}
+
+.range-bar {
+  height: 3px;
+  background: var(--stroke-hairline);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+.range-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.confidence-bar {
+  background: var(--stroke-hairline);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+@keyframes twinPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.5; }
+}
+.twin-pulse {
+  animation: twinPulse 2s ease-in-out infinite;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.data-table th {
+  background: var(--bg-raised);
+  color: var(--text-secondary);
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--stroke-hairline);
+}
+.data-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--stroke-hairline);
+  color: var(--text-primary);
+}
+.data-table tbody tr:hover {
+  background: var(--table-hover);
 }
 
 .label-xs {

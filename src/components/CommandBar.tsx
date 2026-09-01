@@ -18,7 +18,7 @@ function StatusPill({ label, value, color = "var(--text-command)" }: { label: st
 
     <div
 
-      className="flex items-center gap-1.5 px-2 py-1 rounded"
+      className="flex items-center gap-1.5 px-2.5 py-1 rounded"
 
       style={{
 
@@ -26,11 +26,13 @@ function StatusPill({ label, value, color = "var(--text-command)" }: { label: st
 
         border: "1px solid var(--border-command)",
 
+        boxShadow: "0 1px 2px rgba(15, 23, 42, 0.04)",
+
       }}
 
     >
 
-      <span className="label-xs" style={{ fontSize: 9 }}>{label}</span>
+      <span className="label-xs" style={{ fontSize: 9, color: "var(--text-command-muted)" }}>{label}</span>
 
       <span className="font-mono font-bold" style={{ fontSize: 11, color }}>{value}</span>
 
@@ -377,332 +379,172 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
       <div className="flex items-center gap-2">
 
         {/* Stream Play/Pause and Speed */}
-
         <div
-
           className="flex items-center rounded overflow-hidden"
-
           style={{
-
             background: "var(--bg-command-control)",
-
             border: "1px solid var(--border-command)",
-
           }}
-
         >
-
           <button
-
             onClick={toggleStreaming}
-
-            className="px-2 py-1 font-mono text-xs flex items-center gap-1 cursor-pointer hover:bg-white/5"
-
-            style={{ color: isStreaming ? "var(--state-nominal)" : "var(--state-warning)" }}
-
+            className="px-2 py-1 font-mono text-xs flex items-center gap-1 cursor-pointer transition-colors hover:bg-[var(--bg-command-control-hover)]"
+            style={{ color: isStreaming ? "var(--state-nominal)" : "var(--state-warning)", fontWeight: 600 }}
             title="Toggle real-time telemetry stream (Space)"
-
           >
-
             <span>{isStreaming ? "⏸ PAUSE" : "▶ STREAM"}</span>
-
           </button>
-
-
 
           <div style={{ width: 1, height: 18, background: "var(--border-command)" }} />
 
-
-
           {[1, 2, 5].map((spd) => (
-
             <button
-
               key={spd}
-
               onClick={() => setStreamSpeed(spd)}
-
-              className="px-1.5 py-1 font-mono text-xs cursor-pointer hover:bg-white/5"
-
+              className="px-1.5 py-1 font-mono text-xs cursor-pointer transition-colors hover:bg-[var(--bg-command-control-hover)]"
               style={{
-
                 background: streamSpeed === spd ? "var(--table-selected)" : "transparent",
-
                 color: streamSpeed === spd ? "var(--state-advisory)" : "var(--text-command-muted)",
-
                 fontWeight: streamSpeed === spd ? "bold" : "normal",
-
               }}
-
             >
-
               {spd}x
-
             </button>
-
           ))}
-
         </div>
 
-
-
         {/* Fault Injector Button */}
-
         <button
-
           onClick={onOpenFaultInjector}
-
-          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded cursor-pointer transition-transform active:scale-95 shadow-sm"
-
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded cursor-pointer transition-all active:scale-95 shadow-sm hover:brightness-105"
           style={{
-
-            background: "rgba(194,65,12,0.15)",
-
-            border: "1px solid rgba(194,65,12,0.5)",
-
+            background: "rgba(194,65,12,0.12)",
+            border: "1px solid var(--state-warning)",
             color: "var(--state-warning)",
-
           }}
-
           title="Inject real-time engine faults (F)"
-
         >
-
           <span style={{ fontSize: 11 }}>⚡</span>
-
-          <span className="font-display font-semibold text-xs tracking-wider">
-
+          <span className="font-display font-bold text-xs tracking-wider">
             INJECT FAULT
-
           </span>
-
         </button>
-
-
 
         {/* Audio Mute/Unmute */}
-
         <button
-
           onClick={toggleSound}
-
           className="px-2 py-1.5 rounded cursor-pointer flex items-center justify-center hover:border-[var(--state-advisory)]"
-
           style={{
-
             background: "var(--bg-command-control)",
-
             border: "1px solid var(--border-command)",
-
             color: soundOn ? "var(--state-advisory)" : "var(--text-command-muted)",
-
             fontSize: 13,
-
           }}
-
           title={soundOn ? "Mute tactical sound (M)" : "Unmute tactical sound (M)"}
-
         >
-
           {soundOn ? "🔊" : "🔇"}
-
         </button>
 
-
-
-        {/* Theme Toggle Button */}
-
+        {/* Tactical Ops Mode Toggle */}
         <button
-
           onClick={toggleTheme}
-
-          className="px-2 py-1.5 rounded cursor-pointer flex items-center justify-center hover:border-[var(--state-advisory)]"
-
+          className="flex items-center gap-1.5 px-2 py-1.5 rounded cursor-pointer transition-all hover:border-[var(--state-advisory)]"
           style={{
-
             background: "var(--bg-command-control)",
-
             border: "1px solid var(--border-command)",
-
             color: "var(--text-command-secondary)",
-
-            fontSize: 13,
-
           }}
-
-          title={`Switch to ${theme === "light" ? "Dark" : "Light"} Mode`}
-
+          title={`Switch to ${theme === "light" ? "Night Ops (Dark)" : "Daylight Ops (Light)"} Mode`}
         >
-
-          {theme === "light" ? "🌞" : "☀"}
-
+          <span style={{ fontSize: 12 }}>{theme === "light" ? "🌙" : "☀️"}</span>
+          <span className="font-mono text-[9px] font-bold tracking-wider">
+            {theme === "light" ? "NIGHT OPS" : "DAY OPS"}
+          </span>
         </button>
-
-
 
         {/* Arm Mode */}
-
         <button
-
           onClick={toggleArmMode}
-
           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded cursor-pointer transition-all"
-
           style={{
-
             background: armMode ? "var(--state-critical)" : "var(--bg-command-control)",
-
             border: `1px solid ${armMode ? "var(--state-critical)" : "var(--border-command)"}`,
-
-            color: armMode ? "#FFFFFF" : "var(--text-secondary)",
-
+            color: armMode ? "#FFFFFF" : "var(--text-command-secondary)",
           }}
-
         >
-
           <div
-
             style={{
-
               width: 6,
-
               height: 6,
-
               borderRadius: "50%",
-
               background: armMode ? "#FFFFFF" : "var(--text-muted)",
-
             }}
-
           />
-
           <span className="font-display font-bold text-xs tracking-wider">
-
             {armMode ? "ARMED" : "DISARMED"}
-
           </span>
-
         </button>
 
-
-
         {/* Officer User Profile & Logout */}
-
         {user && (
-
           <div className="relative">
-
             <button
-
               onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-
               className="flex items-center gap-1.5 px-2.5 py-1 rounded cursor-pointer hover:border-[var(--state-advisory)]"
-
               style={{
-
                 background: "var(--bg-command-control)",
-
                 border: "1px solid var(--border-command)",
-
               }}
-
             >
-
               <div className="flex flex-col text-left">
-
                 <span className="font-display font-semibold text-xs" style={{ color: "var(--text-command)" }}>
-
                   {user.rank}
-
                 </span>
-
                 <span className="label-xs text-[8px] text-[var(--accent-india)]">
-
                   CLEARANCE L-{user.clearanceLevel}
-
                 </span>
-
               </div>
-
               <span style={{ fontSize: 9, color: "var(--text-command-muted)" }}>▾</span>
-
             </button>
 
-
-
             {profileMenuOpen && (
-
               <div
-
                 className="absolute right-0 top-full mt-1 z-50 rounded shadow-2xl p-3"
-
                 style={{
-
-                  background: "var(--bg-command-control)",
-
-                  border: "1px solid var(--border-command)",
-
-                  minWidth: 220,
-
+                  background: "var(--bg-panel)",
+                  border: "1px solid var(--stroke-hairline)",
+                  minWidth: 230,
+                  boxShadow: "0 10px 25px -5px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08)",
                 }}
-
               >
-
-                <div className="border-b pb-2 mb-2" style={{ borderColor: "var(--border-command)" }}>
-
-                  <div className="font-display font-bold text-xs" style={{ color: "var(--text-command)" }}>
-
+                <div className="border-b pb-2 mb-2" style={{ borderColor: "var(--stroke-hairline)" }}>
+                  <div className="font-display font-bold text-xs" style={{ color: "var(--text-primary)" }}>
                     {user.name}
-
                   </div>
-
                   <div className="font-mono text-[9px] text-[var(--state-advisory)]">{user.serviceId}</div>
-
-                  <div className="text-[10px] text-slate-400 mt-0.5">{user.unit}</div>
-
+                  <div className="text-[10px] mt-0.5" style={{ color: "var(--text-secondary)" }}>{user.unit}</div>
                 </div>
 
                 <button
-
                   onClick={() => {
-
                     setProfileMenuOpen(false);
-
                     logout();
-
                   }}
-
                   className="w-full font-display font-semibold py-1.5 rounded text-xs text-center cursor-pointer transition-colors"
-
                   style={{
-
                     background: "rgba(220,38,38,0.08)",
-
                     color: "var(--state-critical)",
-
                     border: "1px solid rgba(220,38,38,0.25)",
-
                   }}
-
                 >
-
                   🚪 RESTRICTED LOGOUT
-
                 </button>
-
               </div>
-
             )}
-
           </div>
-
         )}
-
       </div>
-
     </div>
-
   );
-
 }
 

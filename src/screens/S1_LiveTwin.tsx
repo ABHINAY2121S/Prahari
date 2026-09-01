@@ -19,15 +19,22 @@ function EngineSchematic({
 }) {
   const cylState = cht.map((c, i) => {
     const deviation = c - 197;
-    if (deviation > 20 || egt[i] - 648 > 30) return "var(--state-warning)";
-    if (deviation > 10) return "var(--state-caution)";
-    return "rgba(0,192,139,0.35)";
+    if (deviation > 20 || egt[i] - 648 > 30) return "rgba(194,65,12,0.18)";
+    if (deviation > 10) return "rgba(180,83,9,0.15)";
+    return "rgba(4,120,87,0.12)";
   });
 
   return (
     <svg viewBox="0 0 320 220" style={{ width: "100%", maxHeight: 220, display: "block" }}>
+      <defs>
+        <pattern id="engineGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+          <path d="M 16 0 L 0 0 0 16" fill="none" stroke="var(--stroke-hairline)" strokeWidth="0.5" strokeOpacity="0.4" />
+        </pattern>
+      </defs>
+
       {/* Background */}
       <rect width="320" height="220" fill="var(--bg-panel)" rx="4" />
+      <rect width="320" height="220" fill="url(#engineGrid)" rx="4" />
 
       {/* Crankshaft */}
       <rect x="10" y="170" width="300" height="8" fill="var(--bg-raised)" rx="2" stroke="var(--stroke-hairline)" strokeWidth="1" />
@@ -81,9 +88,9 @@ function EngineSchematic({
               width="36"
               height="60"
               fill={cylState[i]}
-              stroke={isSelected ? "var(--state-advisory)" : "var(--stroke-hairline)"}
-              strokeWidth="1"
-              rx="2"
+              stroke={isSelected ? "var(--state-advisory)" : isHot ? "var(--state-warning)" : "var(--state-nominal)"}
+              strokeWidth={isSelected ? 1.5 : 1}
+              rx="3"
             />
             {/* Piston */}
             <rect x={cx + 5} y="120" width="26" height="18" fill="var(--bg-raised)" stroke="var(--stroke-hairline)" strokeWidth="1" rx="1" />
@@ -278,11 +285,13 @@ export default function S1_LiveTwin() {
               <button
                 key={c}
                 onClick={() => setSelectedCyl(c)}
-                className="font-mono text-xs px-2 py-0.5 rounded cursor-pointer transition-colors"
+                className="font-mono text-xs px-2.5 py-0.5 rounded cursor-pointer transition-colors"
                 style={{
                   background: selectedCyl === c ? "var(--table-selected)" : "var(--bg-raised)",
                   color: selectedCyl === c ? "var(--state-advisory)" : "var(--text-secondary)",
                   border: `1px solid ${selectedCyl === c ? "var(--state-advisory)" : "var(--stroke-hairline)"}`,
+                  fontWeight: selectedCyl === c ? "bold" : "normal",
+                  boxShadow: selectedCyl === c ? "0 1px 2px rgba(15, 23, 42, 0.06)" : "none",
                 }}
               >
                 CYL {c}
@@ -341,7 +350,14 @@ export default function S1_LiveTwin() {
                 <XAxis dataKey="t" hide />
                 <YAxis domain={[620, 720]} tick={{ fill: "var(--text-muted)", fontSize: 10, fontFamily: "IBM Plex Mono" }} />
                 <Tooltip
-                  contentStyle={{ background: "var(--bg-raised)", border: "1px solid var(--stroke-hairline)", fontSize: 11, fontFamily: "IBM Plex Mono" }}
+                  contentStyle={{
+                    background: "var(--bg-panel)",
+                    border: "1px solid var(--stroke-hairline)",
+                    fontSize: 11,
+                    fontFamily: "IBM Plex Mono",
+                    borderRadius: 4,
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  }}
                   labelStyle={{ color: "var(--text-muted)" }}
                   itemStyle={{ color: "var(--text-primary)" }}
                 />
@@ -351,7 +367,8 @@ export default function S1_LiveTwin() {
                   stroke="var(--twin-predicted)"
                   strokeWidth={1.5}
                   strokeDasharray="4 2"
-                  fill="rgba(123,97,255,0.12)"
+                  fill="var(--twin-predicted)"
+                  fillOpacity={0.08}
                   name="Twin Model"
                   dot={false}
                 />

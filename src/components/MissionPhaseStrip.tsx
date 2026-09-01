@@ -38,9 +38,13 @@ export default function MissionPhaseStrip() {
           <div
             key={phase.id}
             onClick={() => setMissionPhase(phase.id)}
-            className="relative flex flex-col items-center justify-center flex-1 overflow-hidden cursor-pointer hover:bg-white/5 transition-colors"
+            className="relative flex flex-col items-center justify-center flex-1 overflow-hidden cursor-pointer transition-colors"
             style={{
-              background: current ? "rgba(0,192,139,0.08)" : past ? "transparent" : "transparent",
+              background: current
+                ? "rgba(4, 120, 87, 0.14)"
+                : past
+                ? "rgba(100, 116, 139, 0.05)"
+                : "transparent",
               borderRight: "1px solid var(--border-command)",
               minWidth: 0,
             }}
@@ -49,15 +53,19 @@ export default function MissionPhaseStrip() {
             {current && (
               <div
                 className="absolute left-0 top-0 bottom-0"
-                style={{ width: `${prog * 100}%`, background: "rgba(0,192,139,0.12)", pointerEvents: "none" }}
+                style={{ width: `${prog * 100}%`, background: "rgba(4, 120, 87, 0.2)", pointerEvents: "none" }}
               />
             )}
             <span
-              className="font-display font-semibold relative"
+              className="font-display font-bold relative"
               style={{
                 fontSize: 9,
                 letterSpacing: "0.05em",
-                color: current ? "var(--state-nominal)" : past ? "var(--text-muted)" : "var(--text-secondary)",
+                color: current
+                  ? "var(--state-nominal)"
+                  : past
+                  ? "var(--text-command-muted)"
+                  : "var(--text-command-secondary)",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -74,14 +82,14 @@ export default function MissionPhaseStrip() {
             )}
             {current && (
               <div className="flex items-center gap-1 relative">
-                <div className="twin-pulse" style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--state-nominal)" }} />
-                <span className="font-mono font-bold" style={{ fontSize: 8, color: "var(--state-nominal)" }}>
+                <div className="twin-pulse" style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--state-nominal)" }} />
+                <span className="font-mono font-bold tracking-wider" style={{ fontSize: 8, color: "var(--state-nominal)" }}>
                   ACTIVE
                 </span>
               </div>
             )}
             {future && phase.planned && (
-              <span className="font-mono relative" style={{ fontSize: 8, color: "var(--border-command)" }}>
+              <span className="font-mono relative" style={{ fontSize: 8, color: "var(--text-command-muted)", opacity: 0.8 }}>
                 {phase.planned}
               </span>
             )}
@@ -104,13 +112,17 @@ export default function MissionPhaseStrip() {
       {/* Phase envelope dynamic display */}
       <div
         className="flex items-center px-3 shrink-0"
-        style={{ background: "var(--bg-command-control)", borderLeft: "1px solid var(--border-command)", minWidth: 320 }}
+        style={{
+          background: "var(--bg-command-control)",
+          borderLeft: "1px solid var(--border-command)",
+          minWidth: 320,
+        }}
       >
         <div>
-          <span className="label-xs" style={{ fontSize: 9, color: "var(--text-command-muted)" }}>
+          <span className="label-xs" style={{ fontSize: 9, color: "var(--text-command-muted)", letterSpacing: "0.08em" }}>
             PHASE ENVELOPE ·{" "}
           </span>
-          <span className="font-mono" style={{ fontSize: 10, color: "var(--state-advisory)" }}>
+          <span className="font-mono font-semibold" style={{ fontSize: 10, color: "var(--state-advisory)" }}>
             {ENVELOPES[missionPhase] || "2400±60 RPM · 88±6% LOAD · CHT 185–205°C"}
           </span>
         </div>
