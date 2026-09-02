@@ -83,35 +83,47 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
   
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-
     try {
-
       return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-
     } catch (e) {
-
       return 'light';
-
     }
-
   });
 
+  const [showNightModePrompt, setShowNightModePrompt] = useState<boolean>(() => {
+    try {
+      const dismissed = localStorage.getItem('prahari_night_prompt_dismissed');
+      const savedTheme = localStorage.getItem('theme');
+      return !dismissed && savedTheme !== 'dark';
+    } catch {
+      return true;
+    }
+  });
 
+  const dismissNightModePrompt = () => {
+    setShowNightModePrompt(false);
+    try {
+      localStorage.setItem('prahari_night_prompt_dismissed', 'true');
+    } catch (e) {}
+  };
 
   const toggleTheme = () => {
-
     const nextTheme = theme === 'light' ? 'dark' : 'light';
-
     setTheme(nextTheme);
-
     try {
-
       localStorage.setItem('theme', nextTheme);
-
+      localStorage.setItem('prahari_night_prompt_dismissed', 'true');
     } catch (e) {}
-
+    setShowNightModePrompt(false);
     document.documentElement.setAttribute('data-theme', nextTheme);
+  };
 
+  const handleSwitchToNightOps = () => {
+    if (theme === 'light') {
+      toggleTheme();
+    } else {
+      dismissNightModePrompt();
+    }
   };
 
 
@@ -445,22 +457,98 @@ export default function CommandBar({ onOpenFaultInjector }: Props) {
           {soundOn ? "🔊" : "🔇"}
         </button>
 
-        {/* Tactical Ops Mode Toggle */}
-        <button
-          onClick={toggleTheme}
-          className="flex items-center gap-1.5 px-2 py-1.5 rounded cursor-pointer transition-all hover:border-[var(--state-advisory)]"
-          style={{
-            background: "var(--bg-command-control)",
-            border: "1px solid var(--border-command)",
-            color: "var(--text-command-secondary)",
-          }}
-          title={`Switch to ${theme === "light" ? "Night Ops (Dark)" : "Daylight Ops (Light)"} Mode`}
-        >
-          <span style={{ fontSize: 12 }}>{theme === "light" ? "🌙" : "☀️"}</span>
-          <span className="font-mono text-[9px] font-bold tracking-wider">
-            {theme === "light" ? "NIGHT OPS" : "DAY OPS"}
-          </span>
-        </button>
+        {/* Tactical Ops Mode Toggle with Onboarding Pop-up */}
+        <div className="relative">
+          <button
+            onClick={toggleTheme}
+            className={`flex items-center gap-1.5 px-2 py-1.5 rounded cursor-pointer transition-all hover:border-[var(--state-advisory)] ${
+              showNightModePrompt && theme === "light"
+                ? "ring-2 ring-[var(--accent-india)] shadow-md animate-pulse"
+                : ""
+            }`}
+            style={{
+              background: "var(--bg-command-control)",
+              border: "1px solid var(--border-command)",
+              color: "var(--text-command-secondary)",
+            }}
+            title={`Switch to ${theme === "light" ? "Night Ops (Dark)" : "Daylight Ops (Light)"} Mode`}
+          >
+            <span style={{ fontSize: 12 }}>{theme === "light" ? "🌙" : "☀️"}</span>
+            <span className="font-mono text-[9px] font-bold tracking-wider">
+              {theme === "light" ? "NIGHT OPS" : "DAY OPS"}
+            </span>
+          </button>
+
+          {/* Tactical Night Ops Pop-up Advisory */}
+          {showNightModePrompt && theme === "light" && (
+            <div
+              className="absolute right-0 top-full mt-2.5 z-50 rounded-lg p-3 shadow-2xl flex flex-col gap-2"
+              style={{
+                width: 275,
+                background: "var(--bg-panel)",
+                border: "1px solid var(--accent-india)",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.25), 0 0 16px rgba(230,81,0,0.2)",
+              }}
+            >
+              {/* Arrow pointing up to the button */}
+              <div
+                className="absolute -top-1.5 right-6 w-3 h-3 rotate-45"
+                style={{
+                  background: "var(--bg-panel)",
+                  borderLeft: "1px solid var(--accent-india)",
+                  borderTop: "1px solid var(--accent-india)",
+                }}
+              />
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="twin-pulse"
+                    style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent-india)" }}
+                  />
+                  <span className="font-mono font-bold text-[10px] tracking-wider text-[var(--accent-india)]">
+                    TACTICAL ADVISORY
+                  </span>
+                </div>
+                <button
+                  onClick={dismissNightModePrompt}
+                  className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer px-1 -mr-1 leading-none"
+                  title="Dismiss"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <p className="text-xs font-medium text-[var(--text-primary)] leading-relaxed">
+                For tactical / night mode, toggle to <strong className="text-[var(--accent-india)]">Night Ops mode</strong>.
+              </p>
+
+              <div className="flex items-center gap-2 pt-0.5">
+                <button
+                  onClick={handleSwitchToNightOps}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded text-xs font-bold font-mono tracking-wider cursor-pointer transition-all hover:brightness-110 active:scale-95 text-white"
+                  style={{
+                    background: "var(--accent-india)",
+                    boxShadow: "0 2px 8px rgba(230,81,0,0.3)",
+                  }}
+                >
+                  <span>🌙</span>
+                  <span>TOGGLE NIGHT OPS</span>
+                </button>
+                <button
+                  onClick={dismissNightModePrompt}
+                  className="py-1.5 px-2.5 rounded text-[11px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer transition-colors"
+                  style={{
+                    border: "1px solid var(--stroke-hairline)",
+                    background: "var(--bg-command-control)",
+                  }}
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Arm Mode */}
         <button
